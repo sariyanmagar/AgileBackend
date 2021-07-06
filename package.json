@@ -2,7 +2,7 @@
   "name": "agilebackend",
   "version": "1.0.0",
   "description": "Game Rental Web Application",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,8 +17,8 @@
     "express": "^4.17.1",
     "express-validator": "^6.12.0",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.6.9",
     "mongoose": "^5.13.2",
+    "nodemon": "^2.0.9",
     "package": "^1.0.1",
     "package.json": "^2.0.1"
   }

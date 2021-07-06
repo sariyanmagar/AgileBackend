@@ -1,4 +1,6 @@
 const mongoose=require('mongoose')
+const { check, validationResult } = require('express-validator');
+const bcryptjs = require('bcryptjs');
 
 const User=require('../models/userModel')
 
@@ -15,7 +17,7 @@ exports.user_signup=(req, res)=> {
         const password = req.body.password;
         console.log(password)
         bcryptjs.hash(password, 10, function (err, hash) {
-            const data = new Register({
+            const data = new User({
                 fullname: fullname,
                 gender:gender,
                 email: email,
