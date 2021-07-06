@@ -6,24 +6,23 @@ exports.user_signup=(req, res)=> {
     const errors = validationResult(req);
     //valid
     if (errors.isEmpty()) {
-        console.log("Here")
         const fullname = req.body.fullname;
+        const gender= req.body.gender;
         const email = req.body.email;
         const phone = req.body.phone;
         const address = req.body.address;
         const username = req.body.username;
         const password = req.body.password;
-        const role=req.body.role;
         console.log(password)
         bcryptjs.hash(password, 10, function (err, hash) {
             const data = new Register({
                 fullname: fullname,
+                gender:gender,
                 email: email,
                 phone: phone,
                 address: address,
                 username: username,
                 password: hash,
-                role:role
             });
             data.save()
                 .then(function (result) {
