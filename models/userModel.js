@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-const UserRegister=mongoose.model('UserRegister',{
+const User=mongoose.model('User',{
     fullname:{
         type:String
     },
@@ -27,4 +27,4 @@ const UserRegister=mongoose.model('UserRegister',{
     },
 
 })
-module.exports=UserRegister;
+module.exports=User;
