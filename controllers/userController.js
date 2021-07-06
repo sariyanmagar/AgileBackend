@@ -15,7 +15,6 @@ exports.user_signup=(req, res)=> {
         const address = req.body.address;
         const username = req.body.username;
         const password = req.body.password;
-        console.log(password)
         bcryptjs.hash(password, 10, function (err, hash) {
             const data = new User({
                 fullname: fullname,
