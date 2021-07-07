@@ -25,6 +25,11 @@ const User=mongoose.model('User',{
         type:String,
         required:true
     },
+    role:{
+        type:String,
+        enum:["Admin","Customer"],
+        default:"Customer"
+    }
 
 })
 module.exports=User;
