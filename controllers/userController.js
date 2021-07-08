@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const User=require('../models/userModel')
 
-//...........SIGNUP......................................................
+//...........SIGNUP..............................................................................................
 exports.user_signup=(req, res)=> {[
     check('username', "Username is required!").not().isEmpty(),
     check('email',"Invalid email").isEmail(),
@@ -50,7 +50,7 @@ exports.user_signup=(req, res)=> {[
     }
 }
 
-//...............................LOGIN..........................................................
+//...............................LOGIN........................................................................
 
 exports.user_login=(req, res) =>{
     const username = req.body.username;
