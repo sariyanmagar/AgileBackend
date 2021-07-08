@@ -97,7 +97,6 @@ exports.get_users=(req,res)=>{
 }
 
 //..................GET SINGLE USER.................................
-
 exports.get_single_user=(req,res)=>{
     const userId=req.params.id;
     User.findOne({_id:userId}).then(function(userData){
@@ -105,5 +104,12 @@ exports.get_single_user=(req,res)=>{
     })
     .catch(function(err){
         res.status(500).json({error:err})
+    })
+}
+
+//........................DELETE USER....................................
+exports.delete_user=(req,res)=>{
+    User.deleteOne({_id:req.params.id}).then(function(){
+        res.send("User Deleted!!")
     })
 }
