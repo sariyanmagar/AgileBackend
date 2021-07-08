@@ -108,8 +108,20 @@ exports.get_single_user=(req,res)=>{
 }
 
 //........................DELETE USER....................................
-exports.delete_user=(req,res)=>{
+exports.user_delete=(req,res)=>{
     User.deleteOne({_id:req.params.id}).then(function(){
         res.send("User Deleted!!")
+    })
+}
+
+//........................UPDATE USER.....................................
+exports.user_update=(req,res)=>{
+    const userId=req.params.id;
+    User.updateOne({_id:userId},req.body)
+    .then(function(success){
+        res.status(200).json({message:"Updated successfully!!"})
+    })
+    .catch(function(err){
+        res.status(500).json({err:err})
     })
 }
