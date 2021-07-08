@@ -21,10 +21,10 @@ module.exports.verifyUser=function(req,res,next){
 
 module.exports.verifyAdmin=function(req,res,next){
     if(!req.user){
-        return res.status(401).json({message:"Authorized!!"})
+        return res.status(401).json({message:"Unuthorized(Login failed)!!"})
     }
     else if(req.user.role!=="Admin"){
-        return res.status(401).json({message:"Unauthorized!"})
+        return res.status(401).json({message:"Unauthorized( Not an Admin!"})
     }
     next();
 }
