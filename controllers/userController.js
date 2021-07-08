@@ -85,3 +85,13 @@ exports.user_login=(req, res) =>{
             res.status(500).json({ error: e })
         })
 }
+
+exports.get_user=(req,res)=>{
+    User.findOne({_id:req.user._id})
+    .then(function(userData){
+        res.json({
+            success:true,
+            user:userData
+        })
+    })
+}
