@@ -1,9 +1,9 @@
-const mongoose=require('mongoose')
+const mongoose=require('mongoose');
+const User=require('../models/userModel');
 const { check, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-const User=require('../models/userModel')
+const auth=require('../middleware/auth');
 
 //...........SIGNUP..............................................................................................
 exports.user_signup=(req, res)=> {[
@@ -50,7 +50,7 @@ exports.user_signup=(req, res)=> {[
     }
 }
 
-//...............................LOGIN........................................................................
+//...............................LOGIN............................................................................
 
 exports.user_login=(req, res) =>{
     const username = req.body.username;
@@ -85,9 +85,9 @@ exports.user_login=(req, res) =>{
             res.status(500).json({ error: e })
         })
 }
-//............GET USER..............................................
-exports.get_users=(req,res)=>{
-    User.findOne({_id:req.user._id})
+//............GET USER..............................................................................................
+exports.get_users=auth.verifyUser,(req,res)=>{
+    User.findOne({_id : req.user._id})
     .then(function(userData){
         res.json({
             success:true,
@@ -96,25 +96,27 @@ exports.get_users=(req,res)=>{
     })
 }
 
-//..................GET SINGLE USER.................................
+
+//..................GET SINGLE USER..................................................................................
 exports.get_single_user=(req,res)=>{
     const userId=req.params.id;
     User.findOne({_id:userId}).then(function(userData){
         res.status(200).json(userData)
     })
-    .catch(function(err){
-        res.status(500).json({error:err})
+    .catch(function(e){
+        res.status(500).json({error:e})
     })
+    
 }
 
-//........................DELETE USER....................................
+//........................DELETE USER................................................................................
 exports.user_delete=(req,res)=>{
     User.deleteOne({_id:req.params.id}).then(function(){
         res.send("User Deleted!!")
     })
 }
 
-//........................UPDATE USER.....................................
+//........................UPDATE USER.................................................................................
 exports.user_update=(req,res)=>{
     const userId=req.params.id;
     User.updateOne({_id:userId},req.body)
