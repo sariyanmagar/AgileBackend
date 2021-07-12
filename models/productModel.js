@@ -5,21 +5,45 @@ const Product=mongoose.model('Product',{
         type:String,
         required:true
     },
+    platform:{
+        type:String,
+    },
     price:{
         type:Number,
         required:true
+    },
+    publisher:{
+        type:String,
+    },
+    image:{
+        type:String
+    },
+    screenshots:{
+        type:String,
+    },
+    genre:{
+        type:String,
+        require:true
+    },
+    release_date:{
+        type:Number,
+    },
+    system_requirements:{
+        type:String,
+    },
+    Instock:{
+        type:String,
+        enum:["Yes","No"],
+        default:'Yes',
     },
     description:{
         type:String,
         require:true
     },
-    productImage:{
-        type:String
-    },
-    category:{
+    trailer:{
         type:String,
-        require:true
     },
+   
     comment:{
         type:String
     },
