@@ -1,10 +1,10 @@
 const mongoose=require('mongoose');
 
 const Admin=mongoose.model('Admin',{
-    admin_name:{
+    username:{
         type:String
     },
-    admin_password:{
+    password:{
         type:String
     },
 });

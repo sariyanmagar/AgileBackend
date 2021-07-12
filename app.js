@@ -6,6 +6,7 @@ const cors = require('cors')
 
 const db=require('./database/db');
 const userRoute=require('./routes/userRoute');
+const adminRoute=require('./routes/adminRoute');
 
 
 const app=express();
