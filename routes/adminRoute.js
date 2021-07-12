@@ -13,6 +13,6 @@ router.get('/getadmin/:id',AdminController.get_single_admin);
 
 router.delete('/admindelete/:id',AdminController.admin_delete);
 
-router.put('/adminupdate/:id',AdminControler.admin_update);
+router.put('/adminupdate/:id',AdminController.admin_update);
 
 module.exports=router;

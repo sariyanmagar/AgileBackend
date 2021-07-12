@@ -33,7 +33,7 @@ exports.admin_signup=(req,res)=>{[
         });
         data.save()
         .then(function (result) {
-            res.status(201).json({success: true, message: "Customer resgistration is done successfully!!" })
+            res.status(201).json({success: true, message: "Admin resgistration is done successfully!!" })
         })
         .catch(function (err) {
             res.status(500).json({ error: err })
@@ -53,7 +53,7 @@ exports.admin_login=(req, res) =>{
     const username = req.body.username;
     const password = req.body.password;
     Admin.findOne({ username: username })
-        .then(function (userData) {
+        .then(function (adminData) {
             if (adminData === null) {
                 return res.status(201).json({success: false, 
                     message: "Invalid Credentials!!" })
