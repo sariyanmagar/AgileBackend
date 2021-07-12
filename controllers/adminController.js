@@ -94,7 +94,7 @@ exports.get_admins=auth.verifyAdmin,(req,res)=>{
 
 
 //..................GET SINGLE USER..................................................................................
-exports.get_single_user=(req,res)=>{
+exports.get_single_admin=(req,res)=>{
     const adminId=req.params.id;
     Admin.findOne({_id:adminId}).then(function(adminData){
         res.status(200).json(adminData)
