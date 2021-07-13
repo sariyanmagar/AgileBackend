@@ -1,0 +1,54 @@
+const mongoose=require('mongoose');
+
+const Product=mongoose.model('Product',{
+    productname:{
+        type:String,
+        required:true
+    },
+    platform:{
+        type:String,
+    },
+    price:{
+        type:Number,
+        required:true
+    },
+    publisher:{
+        type:String,
+    },
+    image:{
+        type:String
+    },
+    screenshots:{
+        type:String,
+    },
+    genre:{
+        type:String,
+        require:true
+    },
+    release_date:{
+        type:Number,
+    },
+    system_requirements:{
+        type:String,
+    },
+    Instock:{
+        type:String,
+        enum:["Yes","No"],
+        default:'Yes',
+    },
+    description:{
+        type:String,
+        require:true
+    },
+    trailer:{
+        type:String,
+    },
+   
+    comment:{
+        type:String
+    },
+    rating:{
+        type:String
+    }
+})
+module.exports=Product;

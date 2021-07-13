@@ -1,18 +1,18 @@
 const express=require("express");
 const router=express.Router();
 
-const UserController=require('../controllers/adminController')
+const AdminController=require('../controllers/adminController')
 
-router.post('/admin/signup', adminController.admin_signup);
+router.post('/admin/signup', AdminController.admin_signup);
 
-router.post('/admin/login',adminController.admin_login);
+router.post('/admin/login',AdminController.admin_login);
 
-router.get('/getadmins',adminController.get_admins);
+router.get('/get/admins',AdminController.get_admins);
 
-router.get('/getsingleadmin/:id',adminController.get_single_admin);
+router.get('/getadmin/:id',AdminController.get_single_admin);
 
-router.delete('/admindelete/:id',adminController.admin_delete);
+router.delete('/admindelete/:id',AdminController.admin_delete);
 
-router.put('/adminupdate/:id',adminController.admin_update);
+router.put('/adminupdate/:id',AdminController.admin_update);
 
 module.exports=router;

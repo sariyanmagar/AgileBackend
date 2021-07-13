@@ -1,55 +1,65 @@
 const mongoose=require('mongoose');
-const User=require('../models/adminModel');
-const { check, validationResult } = require('express-validator');
-const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const Admin=require('../models/adminModel');
+const {check,validationResult}=require('express-validator');
+const bcryptjs=require('bcryptjs');
+const jwt=require('jsonwebtoken');
 const auth=require('../middleware/auth');
-const Admin = require('../models/adminModel');
 
-//...........SIGNUP..............................................................................................
-exports.user_signup=(req, res)=> {[
-    check('admin_name', "Username is required!").not().isEmpty(),
-    check('admin_password',"Password is required").not().isEmpty()
-]
-    const errors = validationResult(req);
-    //valid
-    if (errors.isEmpty()) {
-        const admin_name = req.body.admin_name;
-        const admin_password= req.body.admin_password;
-        bcryptjs.hash(admin_password, 10, function (err, hash) {
-            const data = new User({
-                admin_name: admin_name,
-                admin_password:admin_password,
-            });
-            data.save()
-                .then(function (result) {
-                    res.status(201).json({success: true, message: "Admin resgistration is done successfully!!" })
-                })
-                .catch(function (err) {
-                    res.status(500).json({ error: err })
-                });
+//..................ADMIN SIGNUP....................................
+
+exports.admin_signup=(req,res)=>{[
+    check('username',"Username is required!").not().isEmpty(),
+    check('password',"Password is required").not().isEmpty()
+    ]
+    const errors=validationResult(req);
+    if(errors.isEmpty()){
+        const fullname = req.body.fullname;
+        const gender= req.body.gender;
+        const email = req.body.email;
+        const phone = req.body.phone;
+        const address = req.body.address;
+        const username = req.body.username;
+        const password = req.body.password;
+        console.log(password)
+        bcryptjs.hash(password,10,function(err,hash){
+            const data = new Admin({
+                fullname: fullname,
+                gender:gender,
+                email: email,
+                phone: phone,
+                address: address,
+                username: username,
+                password: hash,
+        });
+        data.save()
+        .then(function (result) {
+            res.status(201).json({success: true, message: "Admin resgistration is done successfully!!" })
         })
-    }
-    else {
-        //invalid
-        console.log(errors.array())
-        res.status(400).json(errors.array());
-    }
+        .catch(function (err) {
+            res.status(500).json({ error: err })
+        });
+    })
+}
+else {
+//invalid
+    console.log(errors.array())
+    res.status(400).json(errors.array());
+    }   
 }
 
 //...............................LOGIN............................................................................
 
-exports.user_login=(req, res) =>{
-    const admin_name = req.body.admin_name;
-    const admin_password = req.body.admin_password;
-    User.findOne({ admin_name: admin_name })
-        .then(function (userData) {
-            if (userData === null) {
+exports.admin_login=(req, res) =>{
+    const username = req.body.username;
+    const password = req.body.password;
+    Admin.findOne({ username: username })
+        .then(function (adminData) {
+            if (adminData === null) {
                 return res.status(201).json({success: false, 
                     message: "Invalid Credentials!!" })
             }
             //if email exists
-            bcryptjs.compare(admin_password, userData.admin_password, function (err, result) {
+            bcryptjs.compare(password, adminData.password, function (err, result) {
                 if (result === false) {
                     //if password is wrong
                     return res.status(201).json({success: false, message: "Invalid credentials!!" })
@@ -57,13 +67,13 @@ exports.user_login=(req, res) =>{
                 // email and password match
                 // generating token -ticket
 
-                const token = jwt.sign({ adminId: userData._id }, 'anysecretkey');
+                const token = jwt.sign({ adminId: adminData._id }, 'anysecretkey');
                 return res.status(200).json({
                     success: true,
                     message: 'authorization success!!',
                     token: token,
-                    adminid:userData._id,
-                    data:userData
+                    adminId:adminData._id,
+                    data:adminData
                 })
             })
         })
@@ -72,12 +82,12 @@ exports.user_login=(req, res) =>{
         })
 }
 //............GET USER..............................................................................................
-exports.get_users=auth.verifyAdmin,(req,res)=>{
+exports.get_admins=auth.verifyAdmin,(req,res)=>{
     Admin.findOne({_id : req.admin._id})
     .then(function(userData){
         res.json({
             success:true,
-            user:userData
+            admin:userData
         })
     })
 }
@@ -86,8 +96,8 @@ exports.get_users=auth.verifyAdmin,(req,res)=>{
 //..................GET SINGLE USER..................................................................................
 exports.get_single_admin=(req,res)=>{
     const adminId=req.params.id;
-    Admin.findOne({_id:adminId}).then(function(userData){
-        res.status(200).json(userData)
+    Admin.findOne({_id:adminId}).then(function(adminData){
+        res.status(200).json(adminData)
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -97,8 +107,8 @@ exports.get_single_admin=(req,res)=>{
 
 //........................DELETE USER................................................................................
 exports.admin_delete=(req,res)=>{
-    User.deleteOne({_id:req.params.id}).then(function(){
-        res.send("Admin Deleted!!")
+    Admin.deleteOne({_id:req.params.id}).then(function(){
+        res.send("User Deleted!!")
     })
 }
 

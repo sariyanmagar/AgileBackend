@@ -21,7 +21,6 @@ exports.user_signup=(req, res)=> {[
         const address = req.body.address;
         const username = req.body.username;
         const password = req.body.password;
-        const role=req.body.role;
         console.log(password)
         bcryptjs.hash(password, 10, function (err, hash) {
             const data = new User({
@@ -32,7 +31,6 @@ exports.user_signup=(req, res)=> {[
                 address: address,
                 username: username,
                 password: hash,
-                role:role
             });
             data.save()
                 .then(function (result) {
@@ -75,7 +73,6 @@ exports.user_login=(req, res) =>{
                     success: true,
                     message: 'authorization success!!',
                     token: token,
-                    Usertype:userData.role,
                     userid:userData._id,
                     data:userData
                 })
