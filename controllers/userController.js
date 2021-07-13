@@ -1,4 +1,3 @@
-const mongoose=require('mongoose');
 const User=require('../models/userModel');
 const { check, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');

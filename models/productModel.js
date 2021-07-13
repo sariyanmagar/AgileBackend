@@ -26,7 +26,7 @@ const Product=mongoose.model('Product',{
         require:true
     },
     release_date:{
-        type:Number,
+        type:Date,
     },
     system_requirements:{
         type:String,

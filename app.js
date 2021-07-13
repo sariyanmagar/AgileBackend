@@ -7,6 +7,7 @@ const cors = require('cors')
 const db=require('./database/db');
 const userRoute=require('./routes/userRoute');
 const adminRoute=require('./routes/adminRoute');
+const productRoute=require('./routes/productRoute');
 
 
 const app=express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(userRoute);
 app.use(adminRoute);
+app.use(productRoute);
 
 
 
