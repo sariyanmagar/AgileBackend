@@ -26,12 +26,12 @@ const Product=mongoose.model('Product',{
         require:true
     },
     release_date:{
-        type:Date,
+        type:String,
     },
     system_requirements:{
         type:String,
     },
-    Instock:{
+    instock:{
         type:String,
         enum:["Yes","No"],
         default:'Yes',

@@ -3,5 +3,6 @@ const router=express.Router();
 
 const ProductController=require('../controllers/productController')
 
-router.post('/add/product',ProductController.product_insert);
+router.post('/add',ProductController.add_product);
+
 module.exports=router;
