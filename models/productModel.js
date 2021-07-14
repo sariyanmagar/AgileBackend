@@ -3,14 +3,14 @@ const mongoose=require('mongoose');
 const Product=mongoose.model('Product',{
     productname:{
         type:String,
-        required:true
+        
     },
     platform:{
         type:String,
     },
     price:{
         type:Number,
-        required:true
+        
     },
     publisher:{
         type:String,

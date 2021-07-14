@@ -5,25 +5,22 @@ const storage=multer.diskStorage({
     },
     filename:function(req,file,cb){
         //to provide unique filename
-        cb(null, Date.now()+file.originalname)
+        cb(null, Date.now()+file.originalname) 
     }
 })
 
-const fileFilter=function(req,file,cb){
-    if(file.mimetype=='images/jpeg' || file.mimetype=='images/gif' || file.mimetype=='images/png'){
+const fileFilter=function(req, file, cb){
+    if(file.mimetype=='images/jpg' || file.mimetype=='images/png'){
         cb(null,true)
     }
     else{
-        cb(null, false)
-        const err=new Error('Only .png, .jpeg, gif format allowed');
-        err.name='ExtensionError'
-        return cb(err);
+        cb(null,false)
     }
 }
-
-//define tha path
-const upload=multer({
+// path define garne--storage
+const uploadimage=multer({
     storage:storage,
     fileFilter:fileFilter
-});
-module.exports=upload;
+    });
+
+module.exports=uploadimage;
