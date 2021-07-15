@@ -23,7 +23,16 @@ const Product=mongoose.model('Product',{
     },
     genre:{
         type:String,
-        enum:["Shooter","Sandbox","Real-time Strategy","Multiplayer online battle area","Role-playing","Simulation","Sports","Puzzle","Action-Adventure","Horror/Survival"],
+        enum:["Shooter",
+        "Sandbox",
+        "Real-time Strategy",
+        "Multiplayer online battle area",
+        "Role-playing",
+        "Simulation",
+        "Sports",
+        "Puzzle",
+        "Action-Adventure",
+        "Horror/Survival"],
         require:true
     },
     release_date:{
