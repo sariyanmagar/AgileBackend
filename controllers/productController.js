@@ -9,7 +9,7 @@ exports.add_product=(req,res)=>{
     const platform=req.body.platform;
     const price=req.body.price;
     const publisher=req.body.publisher;
-    const path=req.file.path;
+    //const path=req.file.path;
     const genre=req.body.genre;
     const release_date=req.body.release_date;
     const system_requirements=req.body.system_requirements;
@@ -21,7 +21,7 @@ exports.add_product=(req,res)=>{
         platform:platform,
         price:price,
         publisher:publisher,
-        image:"/images/" + req.file.filename,
+        //image:"/images/" + req.file.filename,
         genre:genre,
         release_date:release_date,
         system_requirements:system_requirements,
@@ -78,6 +78,30 @@ exports.delete_product=(req,res)=>{
     .catch(function(err){
         res.status(500).json({error:err})
     })
+}
+
+//........................................GET ALL PRODUCTS.............................................................
+exports.get_all_products=(req,res)=>{
+    Product.find()
+    .then(function(productdata){
+        res.send(productdata);
+    })
+    .catch(function(e){
+        res.status(500).json({error:e})
+    })
+}
+
+//......................................GET SINGLE PRODUCT..........................................................
+
+exports.get_single_product=(req,res)=>{
+    const productId=req.params.id;
+    Product.findOne({_id:productId})
+    .then(function(productData){
+        res.status(200).json(productData)
+    })
+    .catch(function(e){
+        res.status(500).json({error:e})
+    })  
 }
 
 
