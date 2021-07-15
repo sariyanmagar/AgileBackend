@@ -7,6 +7,9 @@ const User=mongoose.model('User',{
     gender:{
         type:String
     },
+    age:{
+        type:Number
+    },
     email:{
         type:String,
         required:true,

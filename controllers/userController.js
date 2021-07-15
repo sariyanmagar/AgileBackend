@@ -14,6 +14,7 @@ exports.user_signup=(req, res)=> {[
     //valid
     if (errors.isEmpty()) {
         const fullname = req.body.fullname;
+        const age=req.body.age;
         const gender= req.body.gender;
         const email = req.body.email;
         const phone = req.body.phone;
@@ -24,6 +25,7 @@ exports.user_signup=(req, res)=> {[
         bcryptjs.hash(password, 10, function (err, hash) {
             const data = new User({
                 fullname: fullname,
+                age:age,
                 gender:gender,
                 email: email,
                 phone: phone,
@@ -82,16 +84,18 @@ exports.user_login=(req, res) =>{
         })
 }
 //............GET USER..............................................................................................
-exports.get_users=auth.verifyUser,(req,res)=>{
-    User.findOne({_id : req.user._id})
-    .then(function(userData){
-        res.json({
-            success:true,
-            user:userData
-        })
-    })
-}
 
+
+exports.get_all_users=(req,res)=>{
+    User.find()
+    .then(function(data){
+        res.send(data);
+    })
+    .catch(function(e){
+        res.status(500).json({error:e})
+    })
+
+}
 
 //..................GET SINGLE USER..................................................................................
 exports.get_single_user=(req,res)=>{

@@ -7,7 +7,7 @@ router.post('/signup', UserController.user_signup);
 
 router.post('/login',UserController.user_login);
 
-router.get('/getusers',UserController.get_users);
+router.get('/getallusers',UserController.get_all_users);
 
 router.get('/getsingleuser/:id',UserController.get_single_user);
 
