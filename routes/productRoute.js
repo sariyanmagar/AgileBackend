@@ -6,4 +6,7 @@ const ProductController=require('../controllers/productController')
 router.post('/add/product',fileUpload.single('image'),ProductController.add_product);
 
 router.put('/update/product/:id',ProductController.update_product)
+
+router.delete('/deleteproduct/:id', ProductController.delete_product)
+
 module.exports=router;

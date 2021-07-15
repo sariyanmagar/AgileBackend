@@ -37,6 +37,7 @@ exports.add_product=(req,res)=>{
     })
 }
 
+//.....................................................UPDATE PRODUCT.................................................
 exports.update_product=(req,res)=>{
     const productname=req.body.productname;
     const platform=req.body.platform;
@@ -61,6 +62,18 @@ exports.update_product=(req,res)=>{
     })
     .then(function(success){
         res.status(200).json({message:"Updated Successfully!!"})
+    })
+    .catch(function(err){
+        res.status(500).json({error:err})
+    })
+}
+
+//.....................................DELETE PRODUCT................................................................
+exports.delete_product=(req,res)=>{
+    const productId= req.params.id;
+    Product.deleteOne({_id:productId})
+    .then(function(success){
+        res.status(200).json({message:"Deleted!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
