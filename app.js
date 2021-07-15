@@ -8,6 +8,7 @@ const db=require('./database/db');
 const userRoute=require('./routes/userRoute');
 const adminRoute=require('./routes/adminRoute');
 const productRoute=require('./routes/productRoute');
+const platformRoute=require('./routes/platformRoute');
 
 
 const app=express();
@@ -18,5 +19,6 @@ app.use('/public', express.static(__dirname+ '/public'))
 app.use(userRoute);
 app.use(adminRoute);
 app.use(productRoute);
+app.use(platformRoute);
 
 app.listen(90);

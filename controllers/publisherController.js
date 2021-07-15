@@ -1,15 +1,15 @@
 const Platform=require('../models/platformModel');
 
 //.........................INSERT PLATFORM...................................................................
-exports.add_platform=(req,res)=>{
-    const platform_name=req.body.platform_name;
+exports.add_publisher=(req,res)=>{
+    const publisher_name=req.body.publisher_name;
 
-    const platformData= new Platform({
-        platform_name:platform_name,
+    const publisherData= new Publisher({
+        publisher_name:publisher_name,
     })
-    platformData.save()
+    publisherData.save()
     .then(function(success){
-        res.status(200).json({message:"Platform Added Successfully!!"})
+        res.status(200).json({message:"Publisher name Added Successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
@@ -17,11 +17,11 @@ exports.add_platform=(req,res)=>{
 }
 
 //....................UPDATE PLATFORM.............................................................................
- exports.update_platform=(req,res)=>{
-     const platform_name=req.body.platform_name
-     const platformid=req.params.id;
-     Platform.updateOne({_id:platformid},{
-         platform_name:platform_name
+ exports.update_publisher=(req,res)=>{
+     const publisher_name=req.body.platform_name
+     const publisherid=req.params.id;
+     Publisher.updateOne({_id:publisherid},{
+         publisher_name:publisher_name
     })
     .then(function(success){
         res.status(200).json({message:"Updated Successfully!!"})
@@ -32,10 +32,10 @@ exports.add_platform=(req,res)=>{
 }
 
 //........................GET ALL PLATFORMS.............................................................................
-exports.get_all_platforms=(req,res)=>{
-    Platform.find()
-    .then(function(platformData){
-        res.send(platformData);
+exports.get_all_publishers=(req,res)=>{
+    Publisher.find()
+    .then(function(publisherData){
+        res.send(publisherData);
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -43,11 +43,11 @@ exports.get_all_platforms=(req,res)=>{
 }
 
 //......................................GET SINGLE PLATFORM..........................................................
-exports.get_single_platform=(req,res)=>{
-    const platformId=req.params.id;
-    Platform.findOne({_id:platformId})
-    .then(function(platformData){
-        res.status(200).json(platformData)
+exports.get_single_publisher=(req,res)=>{
+    const publisherid=req.params.id;
+    publisherData.findOne({_id:publisherid})
+    .then(function(publisherData){
+        res.status(200).json(publisherData)
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -55,9 +55,9 @@ exports.get_single_platform=(req,res)=>{
 }
 
 //.....................................DELETE PLATFORM................................................................
-exports.delete_platform=(req,res)=>{
-    const platformId= req.params.id;
-    Platform.deleteOne({_id:platformId})
+exports.delete_publisher=(req,res)=>{
+    const publisherid= req.params.id;
+    Publisher.deleteOne({_id:publisherid})
     .then(function(success){
         res.status(200).json({message:"Deleted!!"})
     })
