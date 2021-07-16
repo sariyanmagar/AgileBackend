@@ -1,15 +1,13 @@
 const Product=require('../models/productModel');
-const fileUpload = require('../middleware/fileUpload')
+
 
 //.........................INSERT PRODUCT.........................................................................
 exports.add_product=(req,res)=>{
-    console.log(req)
-
+    console.log(req.file)
     const productname=req.body.productname;
     const platform=req.body.platform;
     const price=req.body.price;
     const publisher=req.body.publisher;
-    //const path=req.file.path;
     const genre=req.body.genre;
     const release_date=req.body.release_date;
     const system_requirements=req.body.system_requirements;
@@ -21,7 +19,7 @@ exports.add_product=(req,res)=>{
         platform:platform,
         price:price,
         publisher:publisher,
-        //image:"/images/" + req.file.filename,
+        image:req.file.path,
         genre:genre,
         release_date:release_date,
         system_requirements:system_requirements,

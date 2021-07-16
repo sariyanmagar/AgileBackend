@@ -1,9 +1,11 @@
 const multer=require('multer');
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
+           console.log(file.originalname)
         cb(null,'./public/images')
     },
     filename:function(req,file,cb){
+     
         //to provide unique filename
         cb(null, Date.now()+file.originalname) 
     }
@@ -20,7 +22,7 @@ const fileFilter=function(req, file, cb){
 // path define garne--storage
 const uploadimage=multer({
     storage:storage,
-    fileFilter:fileFilter
+    // fileFilter:fileFilter
     });
 
 module.exports=uploadimage;
