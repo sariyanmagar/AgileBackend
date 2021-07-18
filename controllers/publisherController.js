@@ -1,9 +1,8 @@
-const Platform=require('../models/platformModel');
+const Publisher = require('../models/publisherModel');
 
 //.........................INSERT PLATFORM...................................................................
 exports.add_publisher=(req,res)=>{
     const publisher_name=req.body.publisher_name;
-
     const publisherData= new Publisher({
         publisher_name:publisher_name,
     })

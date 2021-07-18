@@ -6,20 +6,29 @@ const Product=mongoose.model('Product',{
         
     },
     platform:{
+        // type:mongoose.Schema.Types.ObjectId,
+        // ref:'Platform',
+        // required:true
         type:String,
+
     },
-    price:{
-        type:Number,
-        
+    rent_price:{
+        type:Number,  
     },
+
+    buy_price:{
+        type:Number,  
+    },
+
     publisher:{
-        type:String,
+        // type:mongoose.Schema.Types.ObjectId,
+        // ref:'Publisher',
     },
     image:{
         type:String
     },
     screenshots:{
-        type:String,
+        type:String
     },
     genre:{
         type:String,
@@ -37,6 +46,14 @@ const Product=mongoose.model('Product',{
     },
     release_date:{
         type:String,
+    },
+    added_Date:{
+        type:String,
+    },
+    condition:{
+        type:String,
+        enum:["New", "Preowned"],
+        default:"New"
     },
     system_requirements:{
         type:String,

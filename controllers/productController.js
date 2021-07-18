@@ -6,10 +6,13 @@ exports.add_product=(req,res)=>{
     console.log(req.file)
     const productname=req.body.productname;
     const platform=req.body.platform;
-    const price=req.body.price;
+    const rent_price=req.body.rent_price;
+    const buy_price=req.body.buy_price;
     const publisher=req.body.publisher;
     const genre=req.body.genre;
     const release_date=req.body.release_date;
+    const added_date=req.body.added_date;
+    const condition=req.body.condition;
     const system_requirements=req.body.system_requirements;
     const instock=req.body.instock;
     const description=req.body.description;
@@ -17,11 +20,15 @@ exports.add_product=(req,res)=>{
     const productData= new Product({
         productname:productname,
         platform:platform,
-        price:price,
+        rent_price:rent_price,
+        buy_price:buy_price,
         publisher:publisher,
         image:req.file.path,
+        //screenshots:req.file.path,
         genre:genre,
         release_date:release_date,
+        added_date:added_date,
+        condition:condition,
         system_requirements:system_requirements,
         instock:instock,
         description:description,
@@ -39,24 +46,33 @@ exports.add_product=(req,res)=>{
 exports.update_product=(req,res)=>{
     const productname=req.body.productname;
     const platform=req.body.platform;
-    const price=req.body.price;
+    const rent_price=req.body.rent_price;
+    const buy_price=req.body.buy_price;
     const publisher=req.body.publisher;
     const genre=req.body.genre;
     const release_date=req.body.release_date;
+    const added_date=req.body.added_date;
+    const condition=req.body.condition;
     const system_requirements=req.body.system_requirements;
     const instock=req.body.instock;
     const description=req.body.description;
+    const image=req.file.path;
     const pid=req.params.id;
+
     Product.updateOne({_id:pid},{
         productname:productname,
         platform:platform,
-        price:price,
+        rent_price:rent_price,
+        buy_price:buy_price,
         publisher:publisher,
         genre:genre,
         release_date:release_date,
+        added_date:added_date,
+        condition:condition,
         system_requirements:system_requirements,
         instock:instock,
-        description:description
+        description:description,
+        image:image
     })
     .then(function(success){
         res.status(200).json({message:"Updated Successfully!!"})
