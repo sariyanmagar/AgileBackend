@@ -89,7 +89,7 @@ exports.user_login=(req, res) =>{
 exports.get_all_users=(req,res)=>{
     User.find()
     .then(function(data){
-        res.send(data);
+        res.send({data,success: true});
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -101,7 +101,7 @@ exports.get_all_users=(req,res)=>{
 exports.get_single_user=(req,res)=>{
     const userId=req.params.id;
     User.findOne({_id:userId}).then(function(userData){
-        res.status(200).json(userData)
+        res.status(200).json({success: true,userData})
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -112,7 +112,7 @@ exports.get_single_user=(req,res)=>{
 //........................DELETE USER................................................................................
 exports.user_delete=(req,res)=>{
     User.deleteOne({_id:req.params.id}).then(function(){
-        res.send("User Deleted!!")
+        res.send({success: true, message:"User Deleted!!"})
     })
 }
 

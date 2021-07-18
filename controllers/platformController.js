@@ -35,7 +35,7 @@ exports.add_platform=(req,res)=>{
 exports.get_all_platforms=(req,res)=>{
     Platform.find()
     .then(function(platformData){
-        res.send(platformData);
+        res.send({success: true,platformData});
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -47,7 +47,7 @@ exports.get_single_platform=(req,res)=>{
     const platformId=req.params.id;
     Platform.findOne({_id:platformId})
     .then(function(platformData){
-        res.status(200).json(platformData)
+        res.status(200).json({success: true,platformData})
     })
     .catch(function(e){
         res.status(500).json({error:e})
