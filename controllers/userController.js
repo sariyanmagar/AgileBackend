@@ -121,7 +121,7 @@ exports.user_update=(req,res)=>{
     const userId=req.params.id;
     User.updateOne({_id:userId},req.body)
     .then(function(success){
-        res.status(200).json({success:true,message:"Updated successfully!!"})
+        res.status(200).json({success:true, message:"Updated successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({err:err})
