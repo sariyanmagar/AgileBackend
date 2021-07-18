@@ -35,7 +35,7 @@ exports.add_product=(req,res)=>{
     })
     productData.save()
     .then(function(success){
-        res.status(200).json({message:"Product Added Successfully!!"})
+        res.status(200).json({success:true,message:"Product Added Successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
@@ -75,7 +75,7 @@ exports.update_product=(req,res)=>{
         image:image
     })
     .then(function(success){
-        res.status(200).json({message:"Updated Successfully!!"})
+        res.status(200).json({success:true, message:"Updated Successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
@@ -87,7 +87,7 @@ exports.delete_product=(req,res)=>{
     const productId= req.params.id;
     Product.deleteOne({_id:productId})
     .then(function(success){
-        res.status(200).json({message:"Deleted!!"})
+        res.status(200).json({success:true, message:"Deleted!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})

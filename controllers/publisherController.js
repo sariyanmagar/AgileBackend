@@ -8,7 +8,7 @@ exports.add_publisher=(req,res)=>{
     })
     publisherData.save()
     .then(function(success){
-        res.status(200).json({message:"Publisher name Added Successfully!!"})
+        res.status(200).json({success:true,message:"Publisher name Added Successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
@@ -23,7 +23,7 @@ exports.add_publisher=(req,res)=>{
          publisher_name:publisher_name
     })
     .then(function(success){
-        res.status(200).json({message:"Updated Successfully!!"})
+        res.status(200).json({success:true,message:"Updated Successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
@@ -58,7 +58,7 @@ exports.delete_publisher=(req,res)=>{
     const publisherid= req.params.id;
     Publisher.deleteOne({_id:publisherid})
     .then(function(success){
-        res.status(200).json({message:"Deleted!!"})
+        res.status(200).json({success:true,message:"Deleted!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})

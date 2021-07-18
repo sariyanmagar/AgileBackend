@@ -117,7 +117,7 @@ exports.admin_update=(req,res)=>{
     const adminId=req.params.id;
     Admin.updateOne({_id:adminId},req.body)
     .then(function(success){
-        res.status(200).json({message:"Updated successfully!!"})
+        res.status(200).json({success:true,message:"Updated successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({err:err})

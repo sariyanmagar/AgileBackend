@@ -9,7 +9,7 @@ exports.add_platform=(req,res)=>{
     })
     platformData.save()
     .then(function(success){
-        res.status(200).json({message:"Platform Added Successfully!!"})
+        res.status(200).json({success:true,message:"Platform Added Successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
@@ -24,7 +24,7 @@ exports.add_platform=(req,res)=>{
          platform_name:platform_name
     })
     .then(function(success){
-        res.status(200).json({message:"Updated Successfully!!"})
+        res.status(200).json({success:true,message:"Updated Successfully!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
@@ -59,7 +59,7 @@ exports.delete_platform=(req,res)=>{
     const platformId= req.params.id;
     Platform.deleteOne({_id:platformId})
     .then(function(success){
-        res.status(200).json({message:"Deleted!!"})
+        res.status(200).json({success:true,message:"Deleted!!"})
     })
     .catch(function(err){
         res.status(500).json({error:err})
