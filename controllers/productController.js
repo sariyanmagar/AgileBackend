@@ -98,7 +98,7 @@ exports.delete_product=(req,res)=>{
 exports.get_all_products=(req,res)=>{
     Product.find()
     .then(function(productdata){
-        res.send(productdata);
+        res.send({productdata,success: true});
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -111,7 +111,7 @@ exports.get_single_product=(req,res)=>{
     const productId=req.params.id;
     Product.findOne({_id:productId})
     .then(function(productData){
-        res.status(200).json(productData)
+        res.status(200).json({productData,success: true})
     })
     .catch(function(e){
         res.status(500).json({error:e})

@@ -34,7 +34,7 @@ exports.add_publisher=(req,res)=>{
 exports.get_all_publishers=(req,res)=>{
     Publisher.find()
     .then(function(publisherData){
-        res.send(publisherData);
+        res.send({publisherData,success: true});
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -46,7 +46,7 @@ exports.get_single_publisher=(req,res)=>{
     const publisherid=req.params.id;
     publisherData.findOne({_id:publisherid})
     .then(function(publisherData){
-        res.status(200).json(publisherData)
+        res.status(200).json({publisherData,success: true})
     })
     .catch(function(e){
         res.status(500).json({error:e})
