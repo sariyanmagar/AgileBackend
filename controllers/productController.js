@@ -24,7 +24,7 @@ exports.add_product=(req,res)=>{
         buy_price:buy_price,
         publisher:publisher,
         image:req.file.path,
-        //screenshots:req.file.path,
+        screenshots:req.file.path,
         genre:genre,
         release_date:release_date,
         added_date:added_date,
@@ -111,7 +111,7 @@ exports.get_single_product=(req,res)=>{
     const productId=req.params.id;
     Product.findOne({_id:productId})
     .then(function(productData){
-        res.status(200).json({productData,success: true})
+        res.status(200).json({productData, success: true})
     })
     .catch(function(e){
         res.status(500).json({error:e})

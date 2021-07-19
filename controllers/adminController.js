@@ -97,7 +97,7 @@ exports.get_admins=auth.verifyAdmin,(req,res)=>{
 exports.get_single_admin=(req,res)=>{
     const adminId=req.params.id;
     Admin.findOne({_id:adminId}).then(function(adminData){
-        res.status(200).json({success: true,adminData})
+        res.status(200).json({success: true, adminData})
     })
     .catch(function(e){
         res.status(500).json({error:e})
@@ -108,7 +108,7 @@ exports.get_single_admin=(req,res)=>{
 //........................DELETE USER................................................................................
 exports.admin_delete=(req,res)=>{
     Admin.deleteOne({_id:req.params.id}).then(function(){
-        res.send({success: true,message:"User Deleted!!"})
+        res.send({success: true, message:"User Deleted!!"})
     })
 }
 

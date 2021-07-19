@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const fileUpload = require('../middleware/fileUpload')
-const multipleupload=require('../middleware/multipleupload')
+//const multipleupload=require('../middleware/multipleupload')
 
 const ProductController=require('../controllers/productController')
 

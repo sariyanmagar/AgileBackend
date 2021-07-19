@@ -6,9 +6,6 @@ const Product=mongoose.model('Product',{
         
     },
     platform:{
-        // type:mongoose.Schema.Types.ObjectId,
-        // ref:'Platform',
-        // required:true
         type:String,
 
     },
@@ -21,8 +18,7 @@ const Product=mongoose.model('Product',{
     },
 
     publisher:{
-        // type:mongoose.Schema.Types.ObjectId,
-        // ref:'Publisher',
+        type:String
     },
     image:{
         type:String
@@ -45,15 +41,14 @@ const Product=mongoose.model('Product',{
         require:true
     },
     release_date:{
-        type:String,
+        type:Date,
     },
     added_Date:{
-        type:String,
+        type:Date,
     },
     condition:{
         type:String,
-        enum:["New", "Preowned"],
-        default:"New"
+        enum:["New", "Preowned"]
     },
     system_requirements:{
         type:String,
