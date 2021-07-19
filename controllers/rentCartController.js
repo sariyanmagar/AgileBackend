@@ -19,3 +19,43 @@ exports.get=(req,res)=>{
         })
     })
 }
+
+//.....................ADD PRODUCT TO CART..............................
+exports.add_to_rentCart=(req,res)=>{
+    var data={
+        product:req.body.productId,
+        user:req.user._id,
+    }
+
+    RentCart.findOne({user:req.user._id, product:req.body.productId}), function(err,rentCarts){
+        if(rentCart){
+            var quantity=rentCart.quantity+1;
+            RentCart.findOneAndUpdate({_id:rentCart._id},{$set:{quantity:quantity}})
+            .then(function(rentCart){
+                return res.status(200).json({
+                    success:true,
+                    message:"Product Added to Rent Cart Successfully!!",
+                    rentCart:rentCart
+                })
+            }).catch(err=>{
+                return res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            })
+        }else{
+            RentCart.create(data).then(function(rentCart){
+                return res.status(200).json({
+                    success:true,
+                    message:"Product Added to Rent Cart Successfully!!",
+                    rentCart:rentCart
+                })
+            }).catch(err=>{
+                return res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            })
+        }
+    }
+}
