@@ -8,6 +8,9 @@ const db=require('./database/db');
 const userRoute=require('./routes/userRoute');
 const adminRoute=require('./routes/adminRoute');
 const productRoute=require('./routes/productRoute');
+const rentCartRoute=require('./routes/rentCartRoute');
+
+
 const path=require('path')
 const publicDir=path.join(__dirname+ "public")
 
@@ -18,6 +21,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(userRoute);
 app.use(adminRoute);
 app.use(productRoute);
+app.use(rentCartRoute);
 app.use("/public", express.static(__dirname+ "/public"));
 
 

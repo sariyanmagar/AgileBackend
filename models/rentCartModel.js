@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 const {modelName}=require('./productModel')
 
-const Cart=mongoose.model('Cart',{
+const RentCart=mongoose.model('RentCart',{
     product:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product',
@@ -18,4 +18,4 @@ const Cart=mongoose.model('Cart',{
         default:1
     }
 })
-module.exports=Cart;
+module.exports=RentCart;
