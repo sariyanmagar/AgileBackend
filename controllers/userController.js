@@ -87,6 +87,7 @@ exports.user_login=(req, res) =>{
 
 
 exports.get_all_users=(req,res)=>{
+    
     User.find()
     .then(function(data){
         res.send({data,success: true});

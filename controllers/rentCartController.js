@@ -4,7 +4,7 @@ const RentCart = require('../models/rentCartModel');
 
 
 //............................SHOW PRODUCT IN CART.................................................................
-exports.get_product_for_cart=(req,res)=>{
+exports.get_cart=(req,res)=>{
     RentCart.find({user:req.user._id}).populate("product").exec(function(err,rentCarts){
         if(err){
             return res.status(500).json({
@@ -27,7 +27,7 @@ exports.add_to_rentCart=(req,res)=>{
         user:req.user._id,
     }
 
-    RentCart.findOne({user:req.user._id, product:req.body.productId}), function(err,rentCarts){
+    RentCart.findOne({user:req.user._id, product:req.body.productId}), function(err,rentCart){
         if(rentCart){
             var quantity=rentCart.quantity+1;
             RentCart.findOneAndUpdate({_id:rentCart._id},{$set:{quantity:quantity}})
