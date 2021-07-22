@@ -1,6 +1,6 @@
-const auth=require('../middleware/auth');
 const BuyCart=require('../models/buyCartModel');
 
+//...........................SHOW PRODUCT IN BUY CART......................
 exports.get_buycart=(req,res)=>{
     console.log(req.user)
     BuyCart.find({user:req.user._id}).populate("product").exec(function(err, buycarts){
@@ -18,8 +18,9 @@ exports.get_buycart=(req,res)=>{
     })
 }
 
+//..............................DELETE ...............................
 exports.delete_buycart=(req,res)=>{
-    BuyCart.findOneAndDelete({user:req.user._id, product:req.params.id}, function(err,carts){
+    BuyCart.findOneAndDelete({user:req.user._id, product:req.params.id}, function(err,buycarts){
         if(err){
             return res.status(500).json({
                 success:false,
@@ -34,6 +35,7 @@ exports.delete_buycart=(req,res)=>{
     })
 }
 
+//...........................ADD TO BUY CART............................................
 exports.add_to_buycart=(req,res)=>{
     console.log(req.user._id)
     var data={

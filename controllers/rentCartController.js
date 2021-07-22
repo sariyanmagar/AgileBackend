@@ -1,10 +1,9 @@
 const RentCart=require('../models/rentCartModel');
-const auth=require('../middleware/auth');
 
-
-//............................SHOW PRODUCT IN CART.................................................................
-exports.get_cart=auth.verifyUser,(req,res)=>{
-    RentCart.find({user:req.user._id}).populate("product").exec(function(err,rentCarts){
+//...........................SHOW PRODUCT IN BUY CART......................
+exports.get_rentcart=(req,res)=>{
+    console.log(req.user)
+    RentCart.find({user:req.user._id}).populate("product").exec(function(err, rentcarts){
         if(err){
             return res.status(500).json({
                 success:false,
@@ -14,54 +13,14 @@ exports.get_cart=auth.verifyUser,(req,res)=>{
         return res.status(200).json({
             success:true,
             message:"Cart Items",
-            data:rentCarts
+            data:rentcarts
         })
     })
 }
 
-//.............................ADD PRODUCT TO CART....................................................................
-exports.add_to_rentCart=auth.verifyUser,(req,res)=>{
-    var data={
-        product:req.body.productId,
-        user:req.user._id,
-    }
-
-    RentCart.findOne({user:req.user._id, product:req.body.productId}), function(err,rentCart){
-        if(rentCart){
-            var quantity=rentCart.quantity+1;
-            RentCart.findOneAndUpdate({_id:rentCart._id},{$set:{quantity:quantity}})
-            .then(function(rentCart){
-                return res.status(200).json({
-                    success:true,
-                    message:"Product Added to Rent Cart Successfully!!",
-                    rentCart:rentCart
-                })
-            }).catch(err=>{
-                return res.status(500).json({
-                    success:false,
-                    message:err.message
-                })
-            })
-        }else{
-            RentCart.create(data).then(function(rentCart){
-                return res.status(200).json({
-                    success:true,
-                    message:"Product Added to Rent Cart Successfully!!",
-                    rentCart:rentCart
-                })
-            }).catch(err=>{
-                return res.status(500).json({
-                    success:false,
-                    message:err.message
-                })
-            })
-        }
-    }
-}
-
-//...................................DELETE FROM RENT CART.........................................................
-exports.delete_from_cart=auth.verifyUser,(req,res)=>{
-    rentCart.findOneAndDelete({user:req.user._id,product:req.params.id},function(err,rentCarts){
+//..............................DELETE ...............................
+exports.delete_rentcart=(req,res)=>{
+    RentCart.findOneAndDelete({user:req.user._id, product:req.params.id}, function(err,rentcarts){
         if(err){
             return res.status(500).json({
                 success:false,
@@ -70,8 +29,47 @@ exports.delete_from_cart=auth.verifyUser,(req,res)=>{
         }
         return res.status(200).json({
             success:true,
-            message:"Item removed from the cart!!",
-            data:rentCarts
+            message:"Item removed from the buy cart!!",
+            data:buycarts
         })
+    })
+}
+
+//...........................ADD TO BUY CART............................................
+exports.add_to_rentcart=(req,res)=>{
+    console.log(req.user._id)
+    var data={
+        product:req.body.productId,
+        user:req.user._id,
+    }
+    RentCart.findOne(data,function(err, rentcart){
+        if(rentcart){
+            var currentquantity=rentcart.quantity+1;
+            RentCart.findOneAndUpdate({_id:rentcart._id}, {$set:{quantity:currentquantity}}).then(function(rentcart){
+                return res.status(200).json({
+                    success:true,
+                    message:"Product added to buy cart successfully!!",
+                    rentcart:rentcart
+                })
+            }).catch(err =>{
+                return res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            })
+        }else{
+            RentCart.create(data).then(function(rentcart){
+                return res.status(200).json({
+                    success:true,
+                    message:"Product Added to Cart Successfully!!",
+                    rentcart:rentcart
+                })
+            }).catch(err =>{
+                return res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            })
+        }
     })
 }
