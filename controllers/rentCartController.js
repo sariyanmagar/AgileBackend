@@ -1,6 +1,5 @@
-const rentCart=require('../models/rentCartModel');
+const RentCart=require('../models/rentCartModel');
 const auth=require('../middleware/auth');
-const RentCart = require('../models/rentCartModel');
 
 
 //............................SHOW PRODUCT IN CART.................................................................

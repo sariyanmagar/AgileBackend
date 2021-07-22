@@ -9,6 +9,7 @@ const userRoute=require('./routes/userRoute');
 const adminRoute=require('./routes/adminRoute');
 const productRoute=require('./routes/productRoute');
 const rentCartRoute=require('./routes/rentCartRoute');
+const buyCartRoute=require('./routes/buyCartRoute');
 
 
 const path=require('path')
@@ -22,6 +23,7 @@ app.use(userRoute);
 app.use(adminRoute);
 app.use(productRoute);
 app.use(rentCartRoute);
+app.use(buyCartRoute);
 app.use("/public", express.static(__dirname+ "/public"));
 
 
