@@ -1,7 +1,7 @@
 const Favourite=require('../models/favouritesModel');
 
 
-//............................GET FAVOURITE PRODUCT......................
+//............................GET FAVOURITE PRODUCT.....................................................
 exports.get_favourites=(req,res)=>{
     Favourite.find({user:req.user._id}).populate("product").exec(function(err,favourite){
         if(err){
@@ -18,7 +18,7 @@ exports.get_favourites=(req,res)=>{
     })
 }
 
-//................................DELETE FAVOURITE PRODUCT................................
+//................................DELETE FAVOURITE PRODUCT...............................................
 exports.delete_favourites=(req,res)=>{
     Favourite.findOneAndDelete({user:req.user._id, product:req.params.id},function(err,favourite){
         if(err){
@@ -35,8 +35,8 @@ exports.delete_favourites=(req,res)=>{
     })
 }
 
-//............................ADD TO FAVOURITES................................
-exports.add_to_favourite=(req,res)=>{
+//............................ADD TO FAVOURITES..............................................................
+exports.add_to_favourites=(req,res)=>{
     var data={
         product:req.body.productId,
         user:req.user._id,
