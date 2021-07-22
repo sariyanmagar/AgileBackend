@@ -15,3 +15,19 @@ exports.get_favourites=(req,res)=>{
         })
     })
 }
+
+exports.delete_favourites=(req,res)=>{
+    Favourite.findOneAndDelete({user:req.user._id, product:req.params.id},function(err,favourite){
+        if(err){
+            return res.status(500).json({
+                success:false,
+                message:err.message
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            message:"Item removed from the favourite!!",
+            data:favourite
+        })
+    })
+}
