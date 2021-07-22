@@ -2,6 +2,7 @@ const auth=require('../middleware/auth');
 const BuyCart=require('../models/buyCartModel');
 
 exports.get_buycart=(req,res)=>{
+    console.log(req.user)
     BuyCart.find({user:req.user._id}).populate("product").exec(function(err, buycarts){
         if(err){
             return res.status(500).json({
@@ -34,11 +35,12 @@ exports.delete_buycart=(req,res)=>{
 }
 
 exports.add_to_buycart=(req,res)=>{
+    console.log(req.user._id)
     var data={
         product:req.body.productId,
         user:req.user._id,
     }
-    BuyCart.findOne({user:req.user._id, product:req.body.productId},function(err, buycart){
+    BuyCart.findOne(data,function(err, buycart){
         if(buycart){
             var currentquantity=buycart.quantity+1;
             BuyCart.findOneAndUpdate({_id:buycart._id}, {$set:{quantity:currentquantity}}).then(function(buycart){
