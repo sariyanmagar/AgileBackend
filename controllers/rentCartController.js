@@ -4,7 +4,7 @@ const RentCart = require('../models/rentCartModel');
 
 
 //............................SHOW PRODUCT IN CART.................................................................
-exports.get_cart=(req,res)=>{
+exports.get_cart=auth.verifyUser,(req,res)=>{
     RentCart.find({user:req.user._id}).populate("product").exec(function(err,rentCarts){
         if(err){
             return res.status(500).json({
@@ -21,7 +21,7 @@ exports.get_cart=(req,res)=>{
 }
 
 //.............................ADD PRODUCT TO CART....................................................................
-exports.add_to_rentCart=(req,res)=>{
+exports.add_to_rentCart=auth.verifyUser,(req,res)=>{
     var data={
         product:req.body.productId,
         user:req.user._id,
@@ -61,7 +61,7 @@ exports.add_to_rentCart=(req,res)=>{
 }
 
 //...................................DELETE FROM RENT CART.........................................................
-exports.delete_from_cart=(req,res)=>{
+exports.delete_from_cart=auth.verifyUser,(req,res)=>{
     rentCart.findOneAndDelete({user:req.user._id,product:req.params.id},function(err,rentCarts){
         if(err){
             return res.status(500).json({
