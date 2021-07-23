@@ -1,6 +1,5 @@
 const Favourite=require('../models/favouritesModel');
 
-
 //............................GET FAVOURITE PRODUCT.....................................................
 exports.get_favourites=(req,res)=>{
     Favourite.find({user:req.user._id}).populate("product").exec(function(err,favourite){

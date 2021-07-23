@@ -1,10 +1,12 @@
 const express=require('express');
-const router=require('Router');
+const router=express.Router();
+const auth=require('../middleware/auth');
 
 const FavouriteController=require('../controllers/favouriteController');
 
-router.get('/get/favourite',FavouriteController.get_favourites);
-router.post('/add/favourite',FavouriteController.add_to_favourites);
-router.delete('/delete/favourite',FavouriteController.delete_favourites);
+
+router.get('/get/favourite',auth.verifyUser,FavouriteController.get_favourites);
+router.post('/add/favourite',auth.verifyUser,FavouriteController.add_to_favourites);
+router.delete('/delete/favourite',auth.verifyUser,FavouriteController.delete_favourites);
 
 module.exports=router;
