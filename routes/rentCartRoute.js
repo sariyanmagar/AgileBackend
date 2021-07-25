@@ -7,7 +7,7 @@ const RentCartController=require('../controllers/rentCartController');
 
 router.get('/get/rentcart',auth.verifyUser,RentCartController.get_rentcart);
 router.post('/add/rentcart', auth.verifyUser,RentCartController.add_to_rentcart);
-router.delete('/delete/rentcart',auth.verifyUser,RentCartController.delete_rentcart);
+router.delete('/delete/rentcart/:id',auth.verifyUser,RentCartController.delete_rentcart);
 
 
 module.exports=router;
