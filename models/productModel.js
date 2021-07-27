@@ -67,6 +67,16 @@ const Product=mongoose.model('Product',{
     },
     category:{
         type:String,
+    },
+    platform:{
+        type:String,
+        enum:[
+            "XBox",
+            "PS4",
+            "PC",
+            "Nintendo"
+    ],
+        require:true
     }
 })
 module.exports=Product;

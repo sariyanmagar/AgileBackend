@@ -117,6 +117,28 @@ exports.get_all_products=(req,res)=>{
         })
     }  
 }
+exports.get_all_products=(req,res)=>{
+    var category=req.params.category;
+    if(category==="All"){
+        Product.find()
+        .then(function(data){
+            console.log(data)
+            res.json({
+                success:true,
+                data:data
+            })
+        })
+    }else{
+        Product.find({platform:category})
+        .then(function(data){
+            console.log(data)
+            res.json({
+                success:true,
+                data:data
+            })
+        })
+    }  
+}
 
 //......................................GET SINGLE PRODUCT..........................................................
 
