@@ -4,9 +4,7 @@ const Admin=mongoose.model('Admin',{
     fullname:{
         type:String
     },
-    gender:{
-        type:String
-    },
+
     email:{
         type:String,
         required:true,
@@ -16,9 +14,7 @@ const Admin=mongoose.model('Admin',{
     phone:{
         type:Number
     },
-    address:{
-        type:String
-    },
+
     username:{
         type:String,
         required:true,

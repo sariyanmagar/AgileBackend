@@ -8,6 +8,11 @@ const db=require('./database/db');
 const userRoute=require('./routes/userRoute');
 const adminRoute=require('./routes/adminRoute');
 const productRoute=require('./routes/productRoute');
+const rentCartRoute=require('./routes/rentCartRoute');
+const buyCartRoute=require('./routes/buyCartRoute');
+const favouriteRoute=require('./routes/favouriteRoute');
+
+
 const path=require('path')
 const publicDir=path.join(__dirname+ "public")
 
@@ -18,6 +23,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(userRoute);
 app.use(adminRoute);
 app.use(productRoute);
+app.use(rentCartRoute);
+app.use(buyCartRoute);
+app.use(favouriteRoute);
 app.use("/public", express.static(__dirname+ "/public"));
 
 

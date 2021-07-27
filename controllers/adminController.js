@@ -5,7 +5,7 @@ const bcryptjs=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const auth=require('../middleware/auth');
 
-//..................ADMIN SIGNUP....................................
+//..................ADMIN SIGNUP..............................................................................
 
 exports.admin_signup=(req,res)=>{[
     check('username',"Username is required!").not().isEmpty(),
