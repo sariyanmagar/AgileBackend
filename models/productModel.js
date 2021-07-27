@@ -64,9 +64,6 @@ const Product=mongoose.model('Product',{
     },
     trailer:{
         type:String,
-    },
-    category:{
-        type:String,
     }
 })
 module.exports=Product;
