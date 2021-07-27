@@ -17,7 +17,7 @@ const Order=mongoose.model('Order',{
     quantity:{
         type:Number
     },
-    total:{
+    total_price:{
         type:Number
     }
 })

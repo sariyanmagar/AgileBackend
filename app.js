@@ -11,6 +11,7 @@ const productRoute=require('./routes/productRoute');
 const rentCartRoute=require('./routes/rentCartRoute');
 const buyCartRoute=require('./routes/buyCartRoute');
 const favouriteRoute=require('./routes/favouriteRoute');
+const orderRoute=require('./routes/orderRoute');
 
 
 const path=require('path')

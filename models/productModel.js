@@ -32,12 +32,14 @@ const Product=mongoose.model('Product',{
         "Sandbox",
         "Real-time Strategy",
         "Multiplayer online battle area",
-        "Role-playing",
+        "Role-Playing",
         "Simulation",
         "Sports",
         "Puzzle",
-        "Action-Adventure",
-        "Horror/Survival"],
+        "Action",
+        "Adventure",
+        "Horror",
+        "Survival"],
         require:true
     },
     release_date:{
@@ -65,5 +67,6 @@ const Product=mongoose.model('Product',{
     trailer:{
         type:String,
     }
+    
 })
 module.exports=Product;
