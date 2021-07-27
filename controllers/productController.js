@@ -107,7 +107,7 @@ exports.get_all_products=(req,res)=>{
             })
         })
     }else{
-        Product.find({category:category})
+        Product.find({genre:category})
         .then(function(data){
             console.log(data)
             res.json({
@@ -117,6 +117,8 @@ exports.get_all_products=(req,res)=>{
         })
     }  
 }
+
+//for platform
 exports.get_all_products=(req,res)=>{
     var category=req.params.category;
     if(category==="All"){
