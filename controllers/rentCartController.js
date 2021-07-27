@@ -1,6 +1,6 @@
 const RentCart=require('../models/rentCartModel');
 
-//...........................SHOW PRODUCT IN BUY CART......................
+//...........................SHOW PRODUCT IN BUY CART...................................................
 exports.get_rentcart=(req,res)=>{
     console.log(req.user)
     RentCart.find({user:req.user._id}).populate("product").exec(function(err, rentcarts){
@@ -18,7 +18,7 @@ exports.get_rentcart=(req,res)=>{
     })
 }
 
-//..............................DELETE ...............................
+//..............................DELETE ..................................................................
 exports.delete_rentcart=(req,res)=>{
     RentCart.findOneAndDelete({user:req.user._id, product:req.params.id}, function(err,rentcarts){
         if(err){
@@ -35,7 +35,7 @@ exports.delete_rentcart=(req,res)=>{
     })
 }
 
-//...........................ADD TO BUY CART............................................
+//...........................ADD TO BUY CART....................................................................
 exports.add_to_rentcart=(req,res)=>{
     console.log(req.user._id)
     var data={
