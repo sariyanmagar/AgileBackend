@@ -96,13 +96,26 @@ exports.delete_product=(req,res)=>{
 
 //........................................GET ALL PRODUCTS.............................................................
 exports.get_all_products=(req,res)=>{
-    Product.find()
-    .then(function(productdata){
-        res.send({productdata,success: true});
-    })
-    .catch(function(e){
-        res.status(500).json({error:e})
-    })
+    var category=req.params.category;
+    if(category==="All"){
+        Product.find()
+        .then(function(data){
+            console.log(data)
+            res.json({
+                success:true,
+                data:data
+            })
+        })
+    }else{
+        Product.find({category:category})
+        .then(function(data){
+            console.log(data)
+            res.json({
+                success:true,
+                data:data
+            })
+        })
+    }  
 }
 
 //......................................GET SINGLE PRODUCT..........................................................
