@@ -47,7 +47,7 @@ exports.delete_promocode=(req,res)=>{
     })
 }
 
-//........................................GET ALL PROMOCODE.............................................................
+//........................................GET ALL PROMOCODES.............................................................
 exports.get_all_promocode=(req,res)=>{
     Promocode.find()
     .then(function(promocodedata){
@@ -69,4 +69,35 @@ exports.get_single_promocode=(req,res)=>{
     .catch(function(e){
         res.status(500).json({error:e})
     })  
+}
+
+
+//......................................CHECK PROMOCODE..........................................................
+
+exports.promocode_check=(req, res) =>{
+    const code = req.body.code;
+    console.log(code)
+    Promocode.findOne({ code: code })
+        .then(function (promocodeData) {
+            if (promocodeData === null) {
+                return res.status(201).json({success: false, 
+                    message: "Invalid Code!!" })
+            }
+            if (promocodeData.active){
+                console.log(promocodeData)
+                return res.status(200).json({
+                    success: true,
+                    message: 'code success!!',
+                    percent:promocodeData.percent,
+                    data:promocodeData
+                })
+            }
+            else if(!promocodeData.active){
+                console.log(promocodeData)
+                return res.status(201).json({success: false, message: "Code Expired!!" })
+            }  
+            })
+        .catch(function (e) {
+            res.status(500).json({ error: e })
+        })
 }
