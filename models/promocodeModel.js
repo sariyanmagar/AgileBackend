@@ -12,4 +12,4 @@ const Promocode=mongoose.model('Promocode',{
         enum:["Yes","No"]
     }
 })
-module.exports=Promocode
+module.exports=Promocode;
