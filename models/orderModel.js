@@ -1,11 +1,12 @@
 const mongoose=require('mongoose');
 
 const Order=mongoose.model('Order',{
-    product:{
+    allproduct:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product',
         require:true
     },
+],
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
