@@ -1,25 +1,27 @@
 const mongoose=require('mongoose');
+const {ObjectId}=mongoose.Schema.Types;
 
 const Order=mongoose.model('Order',{
-    allproduct:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Product',
-        require:true
-    },
-],
+    allProduct:[
+        {
+            id:{
+                type:ObjectId,
+                ref:'Product'},
+                quantity:Number,
+        },
+    ],
     user:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:ObjectId,
         ref:'User',
-        require:true
+        required:true
     },
     order_date:{
         type:Date
     },
-    quantity:{
-        type:Number
-    },
-    total_price:{
+    total:{
         type:Number
     }
 })
+
+
 module.exports=Order;
