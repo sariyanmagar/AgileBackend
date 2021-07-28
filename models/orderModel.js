@@ -20,8 +20,18 @@ const Order=mongoose.model('Order',{
     },
     total:{
         type:Number
-    }
+    },
+    status:{
+        type:String,
+        default:"Not processed",
+        enum:[
+            "Not processed",
+            "Processing",
+            "Shipped",
+            "Delivered",
+            "Cancelled"
+        ]
+    },
 })
-
 
 module.exports=Order;
