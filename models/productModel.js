@@ -5,10 +5,6 @@ const Product=mongoose.model('Product',{
         type:String,
         
     },
-    platform:{
-        type:String,
-
-    },
     rent_price:{
         type:Number,  
     },
@@ -40,6 +36,15 @@ const Product=mongoose.model('Product',{
         "Horror/Survival"],
         require:true
     },
+    platform:{
+        type:String,
+        enum:[
+            "XBox",
+            "PS4",
+            "PC",
+            "Nintendo"],
+        require:true
+    },
     release_date:{
         type:Date,
     },
@@ -64,19 +69,6 @@ const Product=mongoose.model('Product',{
     },
     trailer:{
         type:String,
-    },
-    category:{
-        type:String,
-    },
-    platform:{
-        type:String,
-        enum:[
-            "XBox",
-            "PS4",
-            "PC",
-            "Nintendo"
-    ],
-        require:true
-    }
+    }, 
 })
 module.exports=Product;
