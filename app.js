@@ -27,6 +27,7 @@ app.use(productRoute);
 app.use(rentCartRoute);
 app.use(buyCartRoute);
 app.use(favouriteRoute);
+app.use(orderRoute);
 app.use("/public", express.static(__dirname+ "/public"));
 
 
