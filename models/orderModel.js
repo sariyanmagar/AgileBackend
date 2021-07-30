@@ -7,7 +7,7 @@ const Order=mongoose.model('Order',{
         ref:'User'
     },
     buycart:{
-        type:Object,
+        type:Schema.Types.ObjectId,
         required:true,
     },
     address:{
