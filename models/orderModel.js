@@ -1,37 +1,23 @@
 const mongoose=require('mongoose');
-const {ObjectId}=mongoose.Schema.Types;
+const Schema=mongoose.Schema;
 
 const Order=mongoose.model('Order',{
-    allProduct:[
-        {
-            id:{
-                type:ObjectId,
-                ref:'Product'},
-                quantity:Number,
-        },
-    ],
     user:{
-        type:ObjectId,
-        ref:'User',
-        required:true
+        type:Schema.Types.ObjectId,
+        ref:'User'
     },
-    order_date:{
-        type:Date
+    buycart:{
+        type:Object,
+        required:true,
     },
-    total:{
-        type:Number
-    },
-    status:{
+    address:{
         type:String,
-        default:"Not processed",
-        enum:[
-            "Not processed",
-            "Processing",
-            "Shipped",
-            "Delivered",
-            "Cancelled"
-        ]
+        required:true,
     },
+    name:{
+        type:String,
+        required:true,
+    }
 })
 
 module.exports=Order;
