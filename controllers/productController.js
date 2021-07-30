@@ -94,7 +94,7 @@ exports.delete_product=(req,res)=>{
     })
 }
 
-//..................................GET ALL PRODUCTS.......................................................
+//..................................GET ALL PRODUCTS...............................................................
 exports.get_all_products=(req,res)=>{
     Product.find()
     .then(function(data){
@@ -104,7 +104,7 @@ exports.get_all_products=(req,res)=>{
         })
     })
 }
-//........................................GET CATEGORY.............................................................
+//........................................GET PRODUCT CATEGORY.............................................................
 exports.get_category=(req,res)=>{
     var category=req.params.category;
     if(category==="All"){
