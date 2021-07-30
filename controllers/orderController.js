@@ -2,7 +2,7 @@ const Order=require('../models/orderModel');
 
 exports.get_order=(req,res)=>{
     console.log(req.user)
-    Order.find({user:req.user._id}).populate("cart").exec(function(err, orders){
+    Order.find({user:req.user._id}).populate("buycart").exec(function(err, orders){
         if(err){
             return res.status(500).json({
                 success:false,

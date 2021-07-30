@@ -8,6 +8,7 @@ const Order=mongoose.model('Order',{
     },
     buycart:{
         type:Schema.Types.ObjectId,
+        ref:'BuyCart',
         required:true,
     },
     address:{
