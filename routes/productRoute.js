@@ -13,8 +13,10 @@ router.delete('/deleteproduct/:id', ProductController.delete_product);
 
 router.get('/getallproducts/', ProductController.get_all_products);
 
+router.get('/get/genre/:category', ProductController.get_genre);
 
-router.get('/getcategory/:category', ProductController.get_category);
+router.get('/get/platform/:category', ProductController.get_platform);
+
 
 router.get('/getsingleproduct/:id',ProductController.get_single_product);
 

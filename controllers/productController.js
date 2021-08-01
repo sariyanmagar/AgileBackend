@@ -105,7 +105,7 @@ exports.get_all_products=(req,res)=>{
     })
 }
 //........................................GET PRODUCT CATEGORY.............................................................
-exports.get_category=(req,res)=>{
+exports.get_genre=(req,res)=>{
     var category=req.params.category;
     if(category==="All"){
         Product.find()
@@ -128,29 +128,29 @@ exports.get_category=(req,res)=>{
     }  
 }
 
-// //for platform
-// exports.get_all_products=(req,res)=>{
-//     var category=req.params.category;
-//     if(category==="All"){
-//         Product.find()
-//         .then(function(data){
-//             console.log(data)
-//             res.json({
-//                 success:true,
-//                 data:data
-//             })
-//         })
-//     }else{
-//         Product.find({platform:category})
-//         .then(function(data){
-//             console.log(data)
-//             res.json({
-//                 success:true,
-//                 data:data
-//             })
-//         })
-//     }  
-// }
+//for platform
+exports.get_platform=(req,res)=>{
+    var category=req.params.category;
+    if(category==="All"){
+        Product.find()
+        .then(function(data){
+            console.log(data)
+            res.json({
+                success:true,
+                data:data
+            })
+        })
+    }else{
+        Product.find({platform:category})
+        .then(function(data){
+            console.log(data)
+            res.json({
+                success:true,
+                data:data
+            })
+        })
+    }  
+}
 
 //......................................GET SINGLE PRODUCT..........................................................
 
