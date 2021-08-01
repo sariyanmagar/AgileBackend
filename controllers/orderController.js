@@ -2,7 +2,7 @@ const Order=require('../models/orderModel');
 
 exports.get_order=(req,res)=>{
     console.log(req.user)
-    Order.find({user:req.user._id}).populate("buycart").exec(function(err, orders){
+    Order.find({user:req.user._id}).populate("buycart").exec(function(err, order){
         if(err){
             return res.status(500).json({
                 success:false,
@@ -12,7 +12,7 @@ exports.get_order=(req,res)=>{
         return res.status(200).json({
             success:true,
             message:"Order Items",
-            data:orders
+            data:order
         })
     })
 }
@@ -57,7 +57,7 @@ exports.add_order=(req,res)=>{
 }
 
 exports.delete_order=(req,res)=>{
-    Order.findOneAndDelete({user:req.user._id, buycart:req.params.id },function(err,orders){
+    Order.findOneAndDelete({user:req.user._id, buycart:req.params.id },function(err,order){
         if(err){
             return res.status(500).json({
                 success:false,
@@ -66,8 +66,8 @@ exports.delete_order=(req,res)=>{
         }
         return res.status(200).json({
             success:true,
-            message:"Order Cancelled",
-            data:orders
+            message:"Your order has been successfully cancelled!!",
+            data:order
         })
     })
 }
