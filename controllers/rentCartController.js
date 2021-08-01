@@ -30,7 +30,7 @@ exports.delete_rentcart=(req,res)=>{
         return res.status(200).json({
             success:true,
             message:"Item removed from the buy cart!!",
-            data:buycarts
+            data:rentcarts
         })
     })
 }

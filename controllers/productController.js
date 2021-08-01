@@ -16,6 +16,7 @@ exports.add_product=(req,res)=>{
     const system_requirements=req.body.system_requirements;
     const instock=req.body.instock;
     const description=req.body.description;
+    const trailer=req.body.trailer;
 
     const productData= new Product({
         productname:productname,
@@ -32,6 +33,7 @@ exports.add_product=(req,res)=>{
         system_requirements:system_requirements,
         instock:instock,
         description:description,
+        trailer:trailer
     })
     productData.save()
     .then(function(success){
@@ -56,6 +58,7 @@ exports.update_product=(req,res)=>{
     const system_requirements=req.body.system_requirements;
     const instock=req.body.instock;
     const description=req.body.description;
+    const trailer=req.body.trailer;
     const image=req.file.path;
     const pid=req.params.id;
 
@@ -72,6 +75,7 @@ exports.update_product=(req,res)=>{
         system_requirements:system_requirements,
         instock:instock,
         description:description,
+        trailer:trailer,
         image:image
     })
     .then(function(success){
