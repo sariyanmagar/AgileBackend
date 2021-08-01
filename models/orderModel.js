@@ -18,7 +18,8 @@ const Order=mongoose.model('Order',{
     name:{
         type:String,
         required:true,
-    }
+    },
+ 
 })
 
 module.exports=Order;
