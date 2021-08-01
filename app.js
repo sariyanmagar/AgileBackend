@@ -11,12 +11,8 @@ const productRoute=require('./routes/productRoute');
 const rentCartRoute=require('./routes/rentCartRoute');
 const buyCartRoute=require('./routes/buyCartRoute');
 const favouriteRoute=require('./routes/favouriteRoute');
-<<<<<<< HEAD
 const promocodeRoute=require('./routes/promocodeRoute');
-
-=======
 const orderRoute=require('./routes/orderRoute');
->>>>>>> order
 
 
 const path=require('path')
@@ -32,11 +28,8 @@ app.use(productRoute);
 app.use(rentCartRoute);
 app.use(buyCartRoute);
 app.use(favouriteRoute);
-<<<<<<< HEAD
 app.use(promocodeRoute);
-=======
 app.use(orderRoute);
->>>>>>> order
 app.use("/public", express.static(__dirname+ "/public"));
 
 
