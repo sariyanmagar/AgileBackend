@@ -1,6 +1,6 @@
 const RentBill=require('../models/rentBillModel');
-
-//...........................SHOW PRODUCT IN RENT BILL.......................................................
+const moment = require('moment');
+//...........................SHOW PRODUCT IN RENT BILL......................
 exports.get_rentbill=(req,res)=>{
     console.log(req.user)
     RentBill.find({user:req.user._id}).populate("product").exec(function(err, rentbills){
@@ -18,7 +18,7 @@ exports.get_rentbill=(req,res)=>{
     })
 }
 
-//..............................DELETE ....................................................................
+//..............................DELETE ...............................
 // exports.delete_rentbill=(req,res)=>{
 //     RentBill.findOneAndDelete({user:req.user._id, product:req.params.id}, function(err,rentbills){
 //         if(err){
@@ -35,12 +35,22 @@ exports.get_rentbill=(req,res)=>{
 //     })
 // }
 
-//...........................ADD TO RENT BILL............................................................
+//...........................ADD TO RENT BILL............................................
 exports.add_to_rentbill=(req,res)=>{
     console.log(req.user._id)
     var data={
         product:req.body.productId,
         user:req.user._id,
+        advance:200,
+        rent_date: moment(new Date()),
+        return_date: null,
+        days_rented: null,
+        calc_price: 0,
+        total_price:0
+        // return_date: moment(new Date()),
+        // days_rented : moment.duration(rent_date.diff(return_date)),
+        // calc_price : days_rented * req.body.rent_price,
+        // total_price : advance + calc_price
     }
     // RentBill.findOne(data,function(err, rentbill){
         // if(rentbill){
