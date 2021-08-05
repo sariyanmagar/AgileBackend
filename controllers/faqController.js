@@ -21,6 +21,26 @@ exports.add_faq=(req,res)=>{
     })
 }
 
+//.........................INSERT ADMIN FAQ.........................................................................
+exports.add_admin_faq=(req,res)=>{
+    const question=req.body.question;
+    const answer=req.body.answer;
+    const answered=req.body.answered;
+
+    const faqData= new Faq({
+        question:question,
+        answer:answer,
+        answered:answered
+    })
+    faqData.save()
+    .then(function(success){
+        res.status(200).json({success:true,message:"FAQ Added Successfully!!"})
+    })
+    .catch(function(err){
+        res.status(500).json({error:err})
+    })
+}
+
 //.....................................................UPDATE FAQ.................................................
 exports.update_faq=(req,res)=>{
     const question=req.body.question;
