@@ -2,15 +2,16 @@ const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
 const Order=mongoose.model('Order',{
-    user:[{
+    user:{
         type:Schema.Types.ObjectId,
-        ref:'User'
-    }],
-    buycart:{
+        ref:'User',
+        require:true
+    },
+    buycart:[{
         type:Schema.Types.ObjectId,
         ref:'BuyCart',
         required:true,
-    },
+    }],
     address:{
         type:String,
         required:true,
