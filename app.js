@@ -15,6 +15,8 @@ const promocodeRoute=require('./routes/promocodeRoute');
 const orderRoute=require('./routes/orderRoute');
 const rentBillRoute=require('./routes/rentBillRoute');
 
+const faqRoute=require('./routes/faqRoute');
+
 
 const path=require('path')
 const publicDir=path.join(__dirname+ "public")
@@ -32,6 +34,7 @@ app.use(favouriteRoute);
 app.use(promocodeRoute);
 app.use(orderRoute);
 app.use(rentBillRoute);
+app.use(faqRoute);
 app.use("/public", express.static(__dirname+ "/public"));
 
 
