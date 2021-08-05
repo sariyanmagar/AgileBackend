@@ -13,6 +13,7 @@ const buyCartRoute=require('./routes/buyCartRoute');
 const favouriteRoute=require('./routes/favouriteRoute');
 const promocodeRoute=require('./routes/promocodeRoute');
 const orderRoute=require('./routes/orderRoute');
+const rentBillRoute=require('./routes/rentBillRoute');
 
 
 const path=require('path')
@@ -30,6 +31,7 @@ app.use(buyCartRoute);
 app.use(favouriteRoute);
 app.use(promocodeRoute);
 app.use(orderRoute);
+app.use(rentBillRoute);
 app.use("/public", express.static(__dirname+ "/public"));
 
 
