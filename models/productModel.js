@@ -1,9 +1,9 @@
 const mongoose=require('mongoose');
+const {ObjectId}=mongoose.Schema.Types;
 
 const Product=mongoose.model('Product',{
     productname:{
-        type:String,
-        
+        type:String,   
     },
     rent_price:{
         type:Number,  
@@ -71,6 +71,6 @@ const Product=mongoose.model('Product',{
     },
     trailer:{
         type:String
-    }
+    },
 })
 module.exports=Product;
