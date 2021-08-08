@@ -1,9 +1,11 @@
 const Rating = require("../models/ratingModel")
 exports.add_rating = (req, res) => {
     const rating = req.body.rating;
+    const comment=req.body.comment;
     const product_id = req.body.product_id;
     const ratingData = new Rating({
         rating: rating,
+        comment:comment,
         product_id: product_id
     })
     ratingData.save()
