@@ -7,10 +7,10 @@ exports.add_rating = (req, res) => {
        
        if(!review){
            Rating.create({
-               user:req.user._id,
-               product:req.body.product,
-               ratings:req.body.ratings,
-               review:req.body.review
+                user:req.user._id,
+                product:req.body.product,
+                ratings:req.body.ratings,
+                review:req.body.review
            }, function(err,ratings){
                if(err) return res.status(500).send(err);
 
@@ -52,7 +52,7 @@ exports.getRatings=(req,res)=>{
 }
 
 exports.getRatingsByUser=(req,res)=>{
-    Rating.findOne({product : req.params.product, user : req.userdata._id}).populate("user").exec(function(err, review){
+    Rating.findOne({product : req.params.product,  user:req.user._id}).populate("user").exec(function(err, review){
         if(err) return res.status(500).send(err);
 
         return res.json({
