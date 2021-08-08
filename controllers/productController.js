@@ -172,7 +172,7 @@ exports.get_single_product=(req,res)=>{
 }
 //.......................RATE PRODUCTS.....................................................
 exports.rateProducts=(req,res)=>{
-    rating.findOne({userid : req.user._id, venueid : req.body.venueid}, function(err, checkrating){
+    rating.findOne({userid : req.user._id, productid : req.body.productid}, function(err, checkrating){
         if(err) return res.send({
             success : false,
             message : err.message
@@ -181,7 +181,7 @@ exports.rateProducts=(req,res)=>{
         if(!checkrating) {
             rating.create({
                 userid : req.user._id,
-                venueid : req.body.venueid,
+                productid : req.body.productid,
                 rating : req.body.rating
             }, function(err, rating){
                 if (err) return res.send({

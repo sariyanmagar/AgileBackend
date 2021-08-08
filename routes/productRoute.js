@@ -1,6 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const fileUpload = require('../middleware/fileUpload')
+const auth=require('../middleware/auth');
 //const multipleupload=require('../middleware/multipleupload')
 
 const ProductController=require('../controllers/productController')
@@ -21,5 +22,5 @@ router.get('/get/platform/:category', ProductController.get_platform);
 
 router.post('getAvgRating',ProductController.getAvgRating);
 
-router.post('/rate/product',ProductController.rateProducts);
+router.post('/rate/product',auth.verifyUser,ProductController.rateProducts);
 module.exports=router;
