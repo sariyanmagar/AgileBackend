@@ -40,3 +40,69 @@ exports.add_rating = (req, res) => {
     })
 }
 
+exports.getRatings=(req,res)=>{
+    Rating.find({product:req.params.product}).populate("User").exec(function(err,review){
+        if(err) return res.status(500).send(err);
+        return res.json({
+            success:true,
+            message:"Ratings",
+            reviews:review
+        })
+    })
+}
+
+exports.getRatingsByUser=(req,res)=>{
+    Rating.findOne({product : req.params.product, user : req.userdata._id}).populate("user").exec(function(err, review){
+        if(err) return res.status(500).send(err);
+
+        return res.json({
+            success: true,
+            message:  "Ratings",
+            userReview : review
+        });
+    })
+}
+
+exports.getRatingsByLimit=(req,res)=>{
+    Rating.find({product : req.params.product}).limit(2).populate("user").exec(function(err, review){
+        if(err) return res.status(500).send(err);
+
+        return res.json({
+            success: true,
+            message:  "Ratings",
+            reviews : review
+        });
+    });
+}
+
+exports.ratingsCount=(req,res)=>{
+    Rating.aggregate([
+        {
+            $match : {product : {$in:[mongoose.Types.ObjectId(req.params.product)]}}
+        },
+        {
+            $group : {
+                _id : '$ratings',
+                count: { $sum: 1 },
+             
+            }
+        },
+        { $sort : { "_id": -1 } },
+        {
+            $project:{
+              rating:"$_id",
+              count : "$count",
+             _id:false
+            } 
+        }
+    ], function(err, data){
+        if(err) return res.status(500).send(err);
+
+        return res.status(200).json({
+            success : true,
+            message : "Ratings Breakdown",
+            ratingsBreakdown : data
+        })
+    })
+}
+
