@@ -170,7 +170,7 @@ exports.get_single_product=(req,res)=>{
         res.status(500).json({error:e})
     })  
 }
-
+//.......................RATE PRODUCTS.....................................................
 exports.rateProducts=(req,res)=>{
     rating.findOne({userid : req.user._id, venueid : req.body.venueid}, function(err, checkrating){
         if(err) return res.send({

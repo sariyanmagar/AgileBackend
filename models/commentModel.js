@@ -15,7 +15,6 @@ const CommentSchema=new Schema({
     },
     replies:[{
         id : {type: Schema.Types.ObjectId, ref: 'reply'}
-
     }]
 });
 const Comment=mongoose.model('comment', CommentSchema);

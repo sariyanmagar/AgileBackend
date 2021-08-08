@@ -1,6 +1,6 @@
 const comment=require('../models/commentModel');
 const reply=require('../models/reply');
-const user=require('../models/userModel')
+const User=require('../models/userModel')
 
 exports.addComments=(req,res)=>{
     console.log(req.body)

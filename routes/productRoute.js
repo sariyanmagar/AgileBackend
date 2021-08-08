@@ -21,5 +21,5 @@ router.get('/get/platform/:category', ProductController.get_platform);
 
 router.post('getAvgRating',ProductController.getAvgRating);
 
-router.post('/rateProduct',ProductController.rateProducts);
+router.post('/rate/product',ProductController.rateProducts);
 module.exports=router;

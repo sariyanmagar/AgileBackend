@@ -8,3 +8,5 @@ router.post('/add/comment', commentController.addComments);
 router.post('/get/comments',commentController.getCommentByProduct);
 router.delete('delete/comments',auth.verifyUser,commentController.destroyComment);
 router.post('/addReply',auth.verifyUser,commentController.addReply);
+
+module.exports=router
