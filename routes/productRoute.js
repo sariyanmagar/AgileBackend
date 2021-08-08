@@ -19,6 +19,7 @@ router.get('/get/genre/:category', ProductController.get_genre);
 
 router.get('/get/platform/:category', ProductController.get_platform);
 
+router.post('getAvgRating',ProductController.getAvgRating);
 
-
+router.post('/rateProduct',ProductController.rateProducts);
 module.exports=router;

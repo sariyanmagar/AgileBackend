@@ -1,4 +1,6 @@
 const Product=require('../models/productModel');
+const rating=require('../models/ratingModel');
+
 
 
 //.........................INSERT PRODUCT.........................................................................
@@ -169,6 +171,79 @@ exports.get_single_product=(req,res)=>{
     })  
 }
 
+exports.rateProducts=(req,res)=>{
+    rating.findOne({userid : req.user._id, venueid : req.body.venueid}, function(err, checkrating){
+        if(err) return res.send({
+            success : false,
+            message : err.message
+        })
+
+        if(!checkrating) {
+            rating.create({
+                userid : req.user._id,
+                venueid : req.body.venueid,
+                rating : req.body.rating
+            }, function(err, rating){
+                if (err) return res.send({
+                    success : false,
+                    message : err.message
+                })
+    
+              
+    
+                return res.send({
+                    success : true,
+                    // message : "Venue Rated",
+                    rating : rating
+    
+                })
+            })
+        }else{
+
+            rating.findByIdAndUpdate(checkrating._id, {rating : req.body.rating}, function(err, ratingdata){
+               
+                if(err) return res.send({
+                    success : false,
+                    message : err.message
+                })
+
+               rating.findById(ratingdata._id, function(err, rating){
+                if(err) return res.send({
+                    success : false,
+                    message : err.message
+                })
+
+                return res.send({
+                    success : true,
+                    rating : rating
+                })
+               })
+            })
+        }
+
+    })
+
+   
+}
+exports.getAvgRating=(req,res)=>{
+    rating.find({productid : req.body.productid}, function(err, data){
+        if(err) return res.send({
+            success:false,
+            message : err.message
+        })
+        var sum = 0;
+         data.forEach(value => {
+             sum  = parseInt(sum) + parseInt(value.rating); 
+               
+           });
+           var avg = sum / data.length;
+        return res.send({
+            success : true,
+            averageRating : avg
+        })
+
+    })
+}
 
 
 

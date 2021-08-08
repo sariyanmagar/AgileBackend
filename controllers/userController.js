@@ -2,7 +2,7 @@ const User=require('../models/userModel');
 const { check, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const auth=require('../middleware/auth');
+const rating=require('../models/ratingModel');
 
 //...........SIGNUP..............................................................................................
 exports.user_signup=(req, res)=> {[
@@ -126,5 +126,26 @@ exports.user_update=(req,res)=>{
     })
     .catch(function(err){
         res.status(500).json({err:err})
+    })
+}
+
+exports.getRatings=(req,res)=>{
+    rating.findOne({productid : req.body.productid, userid : req.user._id}, function(err, rating){
+        if(err) return res.send({
+            success : false,
+            message : err.message
+        })
+        if(!rating){
+            return res.send({
+                success : false,
+                rating : null
+            })
+        }else{
+            return res.send({
+                success : true,
+                rating : rating
+            })
+        }
+      
     })
 }

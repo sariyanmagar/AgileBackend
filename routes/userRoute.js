@@ -2,6 +2,7 @@ const express=require("express");
 const router=express.Router();
 
 const UserController=require('../controllers/userController')
+const auth=require('../middleware/auth');
 
 router.post('/signup', UserController.user_signup);
 
@@ -15,4 +16,5 @@ router.delete('/userdelete/:id',UserController.user_delete);
 
 router.put('/userupdate/:id',UserController.user_update);
 
+router.post('/getRatingsByUser',auth.verifyUser,UserController.getRatings )
 module.exports=router;
