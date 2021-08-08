@@ -1,28 +1,42 @@
 const Rating = require("../models/ratingModel")
+const mongoose=require('mongoose');
+
 exports.add_rating = (req, res) => {
-    const rating = req.body.rating;
-    const comment=req.body.comment;
-    const product_id = req.body.product_id;
-    const ratingData = new Rating({
-        rating: rating,
-        comment:comment,
-        product_id: product_id
+    Rating.findOne({user:req.user._id, product:req.body.product}, function(err,review){
+       if (err) res.status(500).send(err);
+       
+       if(!review){
+           Rating.create({
+               user:req.user._id,
+               product:req.body.product,
+               ratings:req.body.ratings,
+               review:req.body.review
+           }, function(err,ratings){
+               if(err) return res.status(500).send(err);
+
+               return res.json({
+                   success:true,
+                   message:"Rating Successfully Added!!",
+               })
+           })
+       }else{
+           var updatedata={
+               ratings:req.body.ratings,
+               review:req.body.review
+           };
+
+           Rating.findByIdAndUpdate(review._id, updatedata,function(err, review){
+               if (err) res.status(500).send(err);
+
+               Rating.findById(review._id, function (err, reviewdata){
+
+                return res.json({
+                    success:true,
+                    message:"Ratings Updated"
+                });
+               })
+           })
+       }
     })
-    ratingData.save()
-        .then(function (success) {
-            res.status(200).json({ success: true, message: "rating Added Successfully!!" })
-        })
-        .catch(function (err) {
-            res.status(500).json({ error: err })
-        })
 }
-exports.getRatingByID = (req, res) => {
-    const product_id = req.params.product_id;
-    Rating.find({ product_id: product_id })
-        .then(function (ratingData) {
-            res.status(200).json({ ratingData, success: true })
-        })
-        .catch(function (e) {
-            res.status(500).json({ error: e })
-        })
-}
+
