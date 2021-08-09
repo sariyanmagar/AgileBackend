@@ -182,8 +182,8 @@ exports.rateProducts=(req,res)=>{
             rating.create({
                 userid : req.user._id,
                 productid : req.body.productid,
-                rating : req.body.rating
-            }, function(err, rating){
+                ratings : req.body.ratings
+            }, function(err, ratings){
                 if (err) return res.send({
                     success : false,
                     message : err.message
@@ -194,7 +194,7 @@ exports.rateProducts=(req,res)=>{
                 return res.send({
                     success : true,
                     // message : "Venue Rated",
-                    rating : rating
+                    ratings: ratings
     
                 })
             })
@@ -207,7 +207,7 @@ exports.rateProducts=(req,res)=>{
                     message : err.message
                 })
 
-               rating.findById(ratingdata._id, function(err, rating){
+               rating.findById(ratingdata._id, function(err, ratings){
                 if(err) return res.send({
                     success : false,
                     message : err.message
@@ -215,7 +215,7 @@ exports.rateProducts=(req,res)=>{
 
                 return res.send({
                     success : true,
-                    rating : rating
+                    ratings : ratings
                 })
                })
             })
@@ -233,8 +233,7 @@ exports.getAvgRating=(req,res)=>{
         })
         var sum = 0;
          data.forEach(value => {
-             sum  = parseInt(sum) + parseInt(value.rating); 
-               
+             sum  = parseInt(sum) + parseInt(value.ratings); 
            });
            var avg = sum / data.length;
         return res.send({
