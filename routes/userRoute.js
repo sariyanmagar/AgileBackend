@@ -16,5 +16,7 @@ router.delete('/userdelete/:id',UserController.user_delete);
 
 router.put('/userupdate/:id',UserController.user_update);
 
-router.post('/getRatingsByUser',auth.verifyUser,UserController.getRatings )
+router.post('/getRatingsByUser',auth.verifyUser,UserController.getRatings );
+
+router.get('/getRatings', UserController.getRatings);
 module.exports=router;
