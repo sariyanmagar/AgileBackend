@@ -7,12 +7,12 @@ const Order=mongoose.model('Order',{
         ref:'User',
         require:true
     },
-    buycart:[{
+    products:[{
         type:Schema.Types.ObjectId,
-        ref:'BuyCart',
-        required:true,
+        ref:'Product',
+        required:true
     }],
-    address:{
+    delivery_address:{
         type:String,
         required:true,
     },
@@ -20,7 +20,6 @@ const Order=mongoose.model('Order',{
         type:String,
         required:true,
     },
- 
 })
 
 module.exports=Order;
