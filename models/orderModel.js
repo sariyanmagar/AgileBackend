@@ -12,6 +12,10 @@ const Order=mongoose.model('Order',{
         ref:'Product',
         required:true
     }],
+    buy_date:{
+        type:Date,
+        default:Date.now()
+    },
     delivery_address:{
         type:String,
         required:true,
