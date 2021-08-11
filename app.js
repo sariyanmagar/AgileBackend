@@ -1,8 +1,14 @@
 //third party module
 const mongoose=require('mongoose');
 const express=require('express');
+const webpush=require('web-push')
 const bodyParser=require('body-parser');//core module
 const cors = require('cors')
+
+const publicVapidKey='BLaccjgm75Ojtapy-pPj1BV467St1DzqKTjBeDk2aWyYUAprMSfcKsXMSzgLrzdrxVnCmdxHaaiCmGyyO3ljPWY';
+const privateVapidKey='GTmf0ucpf3Kc0f2cSh4KvxsxWpEJyNtYduhuRxkO6sc';
+
+webpush.setVapidDetails('mailto:sariyanmagar@gmail.com',publicVapidKey,privateVapidKey);
 
 const db=require('./database/db');
 const userRoute=require('./routes/userRoute');
@@ -40,7 +46,20 @@ app.use(faqRoute);
 app.use(commentRoute);
 app.use("/public", express.static(__dirname+ "/public"));
 
+//subscribe route
+app.post('/subscribe', (req, res)=>{
+  //get push subscription object from the request
+  const subscription = req.body;
 
+  //send status 201 for the request
+  res.status(201).json({})
+
+  //create paylod: specified the detals of the push notification
+  const payload = JSON.stringify({title: 'Section.io Push Notification' });
+
+  //pass the object into sendNotification fucntion and catch any error
+  webpush.sendNotification(subscription, payload).catch(err=> console.error(err));
+})
 
 
 app.get('/', (req, res) => {
