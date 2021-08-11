@@ -26,7 +26,7 @@ exports.add_order= async (req,res)=>{
         user:req.user._id,
         products:req.body.products,
         buy_date:req.body.buy_date,
-        delivery_address:req.body.address,
+        delivery_address:req.body.delivery_address,
         name:req.body.name
     }
      Order.create(data).then(function(order){

@@ -1,3 +1,4 @@
+const { WebPushError } = require('web-push');
 const Product=require('../models/productModel');
 const rating=require('../models/ratingModel');
 
@@ -44,6 +45,7 @@ exports.add_product=(req,res)=>{
     .catch(function(err){
         res.status(500).json({error:err})
     })
+    
 }
 
 //.....................................................UPDATE PRODUCT.................................................
@@ -212,7 +214,6 @@ exports.rateProducts=(req,res)=>{
                     success : false,
                     message : err.message
                 })
-
                 return res.send({
                     success : true,
                     ratings : ratings
@@ -221,10 +222,9 @@ exports.rateProducts=(req,res)=>{
             })
         }
 
-    })
-
-   
+    })   
 }
+//.......................................AVERAGE RATING.........................................................
 exports.getAvgRating=(req,res)=>{
     rating.find({productid : req.body.productid}, function(err, data){
         if(err) return res.send({
@@ -243,6 +243,8 @@ exports.getAvgRating=(req,res)=>{
 
     })
 }
+
+//........................................SEARCHING..........................................................
 
 
 
