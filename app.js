@@ -46,21 +46,23 @@ app.use(faqRoute);
 app.use(commentRoute);
 app.use("/public", express.static(__dirname+ "/public"));
 
-//subscribe route
-app.post('/subscribe', (req, res)=>{
-  //get push subscription object from the request
-  const subscription = req.body;
+app.post("/subscribe", (req, res) => {
+  // Get pushSubscription object
+  const { subscription, title, message } = req.body;
 
-  //send status 201 for the request
-  res.status(201).json({})
+  // Send 201 - resource created
+  res.status(201).json({});
 
-  //create paylod: specified the detals of the push notification
-  const payload = JSON.stringify({title: 'Section.io Push Notification' });
+  // Create payload
+  const payload = JSON.stringify({ title, message });
 
-  //pass the object into sendNotification fucntion and catch any error
-  webpush.sendNotification(subscription, payload).catch(err=> console.error(err));
-})
+  // Pass object into sendNotification
+  webpush
+    .sendNotification(subscription, payload)
+    .catch(err => console.error(err));
 
+    res.status(200).json({ success: true });
+});
 
 app.get('/', (req, res) => {
     res.send('GOGO Gaming')

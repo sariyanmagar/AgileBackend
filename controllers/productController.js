@@ -103,14 +103,28 @@ exports.delete_product=(req,res)=>{
 }
 
 //..................................GET ALL PRODUCTS...............................................................
-exports.get_all_products=(req,res)=>{
-    Product.find()
-    .then(function(data){
-        res.json({
-            success:true,
-            data:data
+exports.get_all_products = (req, res) => {
+    const sortType = req.params.sortType
+    var sortElem
+    if (sortType == "asc") {
+        sortElem = { productname: 1 }
+    }
+    else if (sortType == "des") {
+        sortElem = { productname: -1 }
+    }
+    else if (sortType == "high") {
+        sortElem = { buy_price: -1 }
+    }
+    else if (sortType == "low") {
+        sortElem = { buy_price: 1 }
+    }
+    Product.find().sort(sortElem)
+        .then(function (data) {
+            res.json({
+                success: true,
+                data: data
+            })
         })
-    })
 }
 //........................................GET PRODUCT CATEGORY.............................................................
 exports.get_genre=(req,res)=>{
