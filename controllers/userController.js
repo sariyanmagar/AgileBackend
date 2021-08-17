@@ -1,8 +1,12 @@
 const User=require('../models/userModel');
+const rating=require('../models/ratingModel');
 const { check, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const rating=require('../models/ratingModel');
+const mailgun=require("mailgun-js");
+const DOMAIN = "sandbox08e4a075b14f453e8e97d91b7fe9c453.mailgun.org";
+const mg=mailgun({apiKey:"55c9e8b03b27bbf78c0836a885ff80ff-9776af14-5bf71c00",domain:DOMAIN});
+
 
 //...........SIGNUP..............................................................................................
 exports.user_signup=(req, res)=> {[
@@ -148,4 +152,40 @@ exports.getRatings=(req,res)=>{
         }
       
     })
+}
+
+//.........................FORGOT PASSWORD...................................
+
+exports.forgotPassword=(req,res)=>{
+    const {email}=req.body;
+    User.findOne({email}, (err,user)=>{
+        if(err || !user){
+            return res.status(400).json({error:"User with this email does not exists"});
+        }
+        const token=jwt.sign({_id:user._id}, process.env.RESET_PASSOWRD_KEY, {expiresIn:'20m'});
+        const data={
+            from:'sariyanmagar@gmail.com',
+            to:email,
+            subject:'email activation link',
+            html:`
+                <h2>Please click on given link to reset your password</h2>
+                <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
+            `
+        };
+        return user.updateOne({resetLink:token}, function(err, success){
+            if(err){
+                return res.status(400).json({error:"reset password link error"});
+            }
+            else{
+                mg.messages().send(data,function (error,body){
+                    if(error){
+                        return res.json({
+                            error:err.message
+                        })
+                    }
+                return res.json({message:'Email has been sent, kindly follow the instruction'});
+            });
+        }
+    })
+})
 }
