@@ -5,6 +5,7 @@ const webpush=require('web-push')
 const bodyParser=require('body-parser');//core module
 const cors = require('cors')
 
+
 const publicVapidKey='BLaccjgm75Ojtapy-pPj1BV467St1DzqKTjBeDk2aWyYUAprMSfcKsXMSzgLrzdrxVnCmdxHaaiCmGyyO3ljPWY';
 const privateVapidKey='GTmf0ucpf3Kc0f2cSh4KvxsxWpEJyNtYduhuRxkO6sc';
 
@@ -24,12 +25,15 @@ const rentBillRoute=require('./routes/rentBillRoute');
 const faqRoute=require('./routes/faqRoute');
 const commentRoute=require('./routes/commentRoute');
 
-const path=require('path')
+
+const path=require('path');
+const { passwordreset } = require('./controllers/passwordResetController');
 const publicDir=path.join(__dirname+ "public")
 const app=express();
 
 
 webpush.setVapidDetails('mailto:sariyanmagar@gmail.com', publicVapidKey, privateVapidKey)
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}));
