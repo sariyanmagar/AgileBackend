@@ -5,7 +5,7 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mailgun=require("mailgun-js");
 const DOMAIN = "sandbox08e4a075b14f453e8e97d91b7fe9c453.mailgun.org";
-const mg=mailgun({apiKey:"55c9e8b03b27bbf78c0836a885ff80ff-9776af14-5bf71c00",domain:DOMAIN});
+const mg=mailgun({apiKey:process.env.MAILGUN_APIKEY, domain:DOMAIN});
 
 
 //...........SIGNUP..............................................................................................
@@ -162,9 +162,9 @@ exports.forgotPassword=(req,res)=>{
         if(err || !user){
             return res.status(400).json({error:"User with this email does not exists"});
         }
-        const token=jwt.sign({_id:user._id}, process.env.RESET_PASSOWRD_KEY, {expiresIn:'20m'});
+        const token=jwt.sign({_id:user._id}, process.env.RESET_PASSWORD_KEY, {expiresIn:'30m'});
         const data={
-            from:'sariyanmagar@gmail.com',
+            from:'noreply@hello.com',
             to:email,
             subject:'email activation link',
             html:`
@@ -177,8 +177,8 @@ exports.forgotPassword=(req,res)=>{
                 return res.status(400).json({error:"reset password link error"});
             }
             else{
-                mg.messages().send(data,function (error,body){
-                    if(error){
+                mg.messages().send(data,function (err,body){
+                    if(err){
                         return res.json({
                             error:err.message
                         })

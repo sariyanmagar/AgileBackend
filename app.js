@@ -1,11 +1,10 @@
 //third party module
 const mongoose=require('mongoose');
 const express=require('express');
-const webpush=require('web-push');
-const mailgun=require('mailgun-js')
+const webpush=require('web-push')
 const bodyParser=require('body-parser');//core module
-const cors = require('cors');
-
+const cors = require('cors')
+require('dotenv').config();
 
 const publicVapidKey='BLaccjgm75Ojtapy-pPj1BV467St1DzqKTjBeDk2aWyYUAprMSfcKsXMSzgLrzdrxVnCmdxHaaiCmGyyO3ljPWY';
 const privateVapidKey='GTmf0ucpf3Kc0f2cSh4KvxsxWpEJyNtYduhuRxkO6sc';
@@ -26,18 +25,15 @@ const rentBillRoute=require('./routes/rentBillRoute');
 const faqRoute=require('./routes/faqRoute');
 const commentRoute=require('./routes/commentRoute');
 
-
-const path=require('path');
+const path=require('path')
 const publicDir=path.join(__dirname+ "public")
 const app=express();
 
 
 webpush.setVapidDetails('mailto:sariyanmagar@gmail.com', publicVapidKey, privateVapidKey)
-
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(mailgun);
 app.use(userRoute);
 app.use(adminRoute);
 app.use(productRoute);
@@ -69,11 +65,11 @@ app.post("/subscribe", (req, res) => {
     res.status(200).json({ success: true });
 });
 
-app.get('/', (req, res) => {
-    res.send('GOGO Gaming')
-  })
+// app.get('/', (req, res) => {
+//     res.send('GOGO Gaming')
+//   })
 
-//app.listen(90);
-app.listen(process.env.PORT, () => {
-    console.log("App listening at http://localhost:90")
-});
+app.listen(90);
+// app.listen(process.env.PORT, () => {
+//     console.log("App listening at http://localhost:90")
+// });
