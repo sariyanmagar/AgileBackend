@@ -25,5 +25,4 @@ const uploadimage=multer({
     // fileFilter:fileFilter
     });
 
-    
 module.exports=uploadimage;

@@ -1,12 +1,11 @@
 const express=require('express');
 const router=express.Router();
 const fileUpload = require('../middleware/fileUpload')
+const multipleUpload = require('../middleware/multipleupload')
 const auth=require('../middleware/auth');
-//const multipleupload=require('../middleware/multipleupload')
-
 const ProductController=require('../controllers/productController')
 
-router.post('/add/product',fileUpload.single("image"),ProductController.add_product);
+router.post('/add/product',fileUpload.single("image"),multipleUpload,ProductController.add_product);
 
 router.put('/update/product/:id',fileUpload.single("image"),ProductController.update_product);
 

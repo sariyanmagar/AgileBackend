@@ -188,7 +188,7 @@ exports.get_single_product=(req,res)=>{
 }
 //.......................RATE PRODUCTS.....................................................
 exports.rateProducts=(req,res)=>{
-    rating.findOne({userid : req.user._id, productid : req.body.productid}, function(err, checkrating){
+    rating.findOne({userid:req.user._id, productid : req.body.productid}, function(err, checkrating){
         if(err) return res.send({
             success : false,
             message : err.message
@@ -205,8 +205,6 @@ exports.rateProducts=(req,res)=>{
                     message : err.message
                 })
     
-              
-    
                 return res.send({
                     success : true,
                     // message : "Venue Rated",
@@ -215,7 +213,6 @@ exports.rateProducts=(req,res)=>{
                 })
             })
         }else{
-
             rating.findByIdAndUpdate(checkrating._id, {rating : req.body.rating}, function(err, ratingdata){
                
                 if(err) return res.send({
