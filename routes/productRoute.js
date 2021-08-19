@@ -24,4 +24,5 @@ router.post('/getAvgRating',ProductController.getAvgRating);
 router.post('/rate/product',auth.verifyUser,ProductController.rateProducts);
 
 router.get('/getfourproducts/:id', ProductController.get_four_products);
+
 module.exports=router;
