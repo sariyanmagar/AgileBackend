@@ -177,8 +177,8 @@ exports.forgotPassword=(req,res)=>{
                 return res.status(400).json({error:"reset password link error"});
             }
             else{
-                mg.messages().send(data,function (error,body){
-                    if(error){
+                mg.messages().send(data,function (err,body){
+                    if(err){
                         return res.json({
                             error:err.message
                         })
