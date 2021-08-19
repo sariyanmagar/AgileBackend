@@ -172,13 +172,13 @@ exports.forgotPassword=(req,res)=>{
                 <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
             `
         };
-        return user.updateOne({resetLink:token}, function(err, success){
+        return User.updateOne({resetLink:token}, function(err, success){
             if(err){
                 return res.status(400).json({error:"reset password link error"});
             }
             else{
-                mg.messages().send(data,function (err,body){
-                    if(err){
+                mg.messages().send(data,function (error,body){
+                    if(error){
                         return res.json({
                             error:err.message
                         })
