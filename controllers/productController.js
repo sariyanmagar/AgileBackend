@@ -255,8 +255,24 @@ exports.getAvgRating=(req,res)=>{
     })
 }
 
-//........................................SEARCHING..........................................................
-
+//.......................................RECOMMENDATION...........................................................
+exports.get_four_products=(req,res)=>{
+    const productId=req.params.id;
+    Product.findOne({_id:productId})
+    .then(function(productData){
+        Product.find({genre:productData.genre}).limit(4).skip(Math.round(Math.random() * 4))
+        .then(function(data){
+            console.log(data)
+            res.json({
+                success:true,
+                data:data
+        })
+        })
+    })
+    .catch(function(e){
+        res.status(500).json({error:e})
+    })  
+}
 
 
 
