@@ -5,8 +5,8 @@ const rating=require('../models/ratingModel');
 
 
 //.........................INSERT PRODUCT.........................................................................
-exports.add_product=(req,res)=>{
-    console.log(req.file)
+exports.add_product=async(req,res)=>{
+    // console.log(req.files)
     const productname=req.body.productname;
     const platform=req.body.platform;
     const rent_price=req.body.rent_price;
@@ -20,15 +20,19 @@ exports.add_product=(req,res)=>{
     const instock=req.body.instock;
     const description=req.body.description;
     const trailer=req.body.trailer;
-
+    // var screenshots = []
+    // await Promise.all(
+    // console.log(screenshots)
     const productData= new Product({
         productname:productname,
         platform:platform,
         rent_price:rent_price,
         buy_price:buy_price,
         publisher:publisher,
-        image:req.file.path,
-        screenshots:req.file.path,
+        image:req.files.image[0].filename,
+        screenshots:(req.files.screenshots.map(dat=>{
+            return dat.path
+        })),
         genre:genre,
         release_date:release_date,
         added_date:added_date,
@@ -80,7 +84,7 @@ exports.update_product=(req,res)=>{
         instock:instock,
         description:description,
         trailer:trailer,
-        image:image
+        image:image,
     })
     .then(function(success){
         res.status(200).json({success:true, message:"Updated Successfully!!"})

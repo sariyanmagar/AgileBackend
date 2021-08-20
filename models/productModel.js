@@ -1,4 +1,5 @@
 const mongoose=require('mongoose');
+const { array } = require('../middleware/fileUpload');
 const {ObjectId}=mongoose.Schema.Types;
 
 const Product=mongoose.model('Product',{
@@ -20,7 +21,7 @@ const Product=mongoose.model('Product',{
         type:String
     },
     screenshots:{
-        type:String
+        type:[String]
     },
     genre:{
         type:String,
@@ -50,7 +51,7 @@ const Product=mongoose.model('Product',{
     release_date:{
         type:Date,
     },
-    added_Date:{
+    added_date:{
         type:Date,
     },
     condition:{
