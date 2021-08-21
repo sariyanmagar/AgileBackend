@@ -5,10 +5,10 @@ const webpush=require('web-push')
 const bodyParser=require('body-parser');//core module
 const cors = require('cors')
 
-const publicVapidKey='BLaccjgm75Ojtapy-pPj1BV467St1DzqKTjBeDk2aWyYUAprMSfcKsXMSzgLrzdrxVnCmdxHaaiCmGyyO3ljPWY';
-const privateVapidKey='GTmf0ucpf3Kc0f2cSh4KvxsxWpEJyNtYduhuRxkO6sc';
+const publicVapidKey='BNd0TixFDsz4rsKrP676X3j6-cpwNNaeT5JlqCdG9YD-vb_Q6TVle8OzPEFnmA6ChN31nmpABAgm9oK3BmxtVHU';
+const privateVapidKey='vTZuLsQMsnFdA7qp3oZJlruPw6vJkjY8uwJuYl0q0Zo';
 
-webpush.setVapidDetails('mailto:sariyanmagar@gmail.com',publicVapidKey,privateVapidKey);
+webpush.setVapidDetails('mailto:test@gmail.com',publicVapidKey,privateVapidKey);
 
 const db=require('./database/db');
 const userRoute=require('./routes/userRoute');
