@@ -106,7 +106,17 @@ exports.delete_product=(req,res)=>{
     })
 }
 
-//..................................GET ALL PRODUCTS...............................................................
+exports.get_all_products = (req, res) => {
+    Product.find()
+        .then(function (data) {
+            res.json({
+                success: true,
+                data: data
+            })
+        })
+}
+
+//..................................GET ALL SORTED PRODUCTS...............................................................
 exports.get_all_products = (req, res) => {
     const sortType = req.params.sortType
     var sortElem
