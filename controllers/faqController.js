@@ -83,28 +83,46 @@ exports.get_all_faqs=(req,res)=>{
         })
     })
 }
+
 //........................................GET UNANSWERED FAQ.............................................................
-exports.get_unanswered=(req,res)=>{
-    var answered=req.params.answered;
-    if(answered===true){
-        Faq.find()
-        .then(function(data){
-            console.log(data)
-            res.json({
-                success:true,
-                data:data
+// exports.get_unanswered=(req,res)=>{
+//     var answered=req.params.answered;
+//     if(answered===true){
+//         Faq.find()
+//         .then(function(data){
+//             console.log(data)
+//             res.json({
+//                 success:true,
+//                 data:data
+//             })
+//         })
+//     }else{
+//         Faq.find({answered:false})
+//         .then(function(data){
+//             console.log(data)
+//             res.json({
+//                 success:true,
+//                 data:data
+//             })
+//         })
+//     }  
+// }
+
+//........................................GET UNANSWERED FAQ.............................................................
+exports.get_unanswered = (req, res) => {
+    Faq.find({ answered: req.params.answered })
+        .then(function (data) {
+            return res.json({
+                success: true,
+                data: data
             })
         })
-    }else{
-        Faq.find({answered:false})
-        .then(function(data){
-            console.log(data)
-            res.json({
-                success:true,
-                data:data
+        .catch(err => {
+            return res.json({
+                success: false,
+                error: err
             })
         })
-    }  
 }
 
 //......................................GET SINGLE FAQ..........................................................
