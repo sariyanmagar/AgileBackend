@@ -285,3 +285,19 @@ exports.update_buycart_to_delivered = async (req, res) => {
 //         }
 //     );
 // }
+
+//.........................................................REMOVE FROM ORDER..............................................................
+exports.remove_order = (req,res) =>{
+    var orderId = req.params.id
+    var Ob_id = req.params.Ob_id
+    BuyCart.findOneAndUpdate({ _id: orderId,status: "pending"},
+        { 
+            $pull: { "order": {_id: Ob_id} }
+        }
+    ).then(data=>{
+        return res.status(200).json({
+            success:true,
+            message:"success delete"
+        })
+    });
+}
