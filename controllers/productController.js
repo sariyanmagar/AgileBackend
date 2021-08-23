@@ -274,7 +274,7 @@ exports.get_four_products=(req,res)=>{
     const productId=req.params.id;
     Product.findOne({_id:productId})
     .then(function(productData){
-        Product.find({genre:productData.genre}).limit(4).skip(Math.round(Math.random() * 4))
+        Product.find({genre:productData.genre,_id: {$ne: productId}}).limit(4).skip(Math.round(Math.random() * 4))
         .then(function(data){
             console.log(data)
             res.json({
