@@ -154,38 +154,3 @@ exports.getRatings=(req,res)=>{
     })
 }
 
-//.........................FORGOT PASSWORD...................................
-
-exports.forgotPassword=(req,res)=>{
-    const {email}=req.body;
-    User.findOne({email}, (err,user)=>{
-        if(err || !user){
-            return res.status(400).json({error:"User with this email does not exists"});
-        }
-        const token=jwt.sign({_id:user._id}, process.env.RESET_PASSWORD_KEY, {expiresIn:'30m'});
-        const data={
-            from:'noreply@hello.com',
-            to:email,
-            subject:'email activation link',
-            html:`
-                <h2>Please click on given link to reset your password</h2>
-                <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
-            `
-        };
-        return User.updateOne({resetLink:token}, function(err, success){
-            if(err){
-                return res.status(400).json({error:"reset password link error"});
-            }
-            else{
-                mg.messages().send(data,function (err,body){
-                    if(err){
-                        return res.json({
-                            error:err.message
-                        })
-                    }
-                return res.json({message:'Email has been sent, kindly follow the instruction'});
-            });
-        }
-    })
-})
-}

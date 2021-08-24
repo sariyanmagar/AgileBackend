@@ -20,6 +20,4 @@ router.post('/getRatingsByUser',auth.verifyUser,UserController.getRatings );
 
 router.get('/getRatings', UserController.getRatings);
 
-router.put('/forget/password', UserController.forgotPassword);
-
 module.exports=router;

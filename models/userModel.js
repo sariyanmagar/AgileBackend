@@ -35,10 +35,7 @@ const UserSchema=new Schema({
         type:String,
         required:true
     },
-    resetLink:{
-        data:String,
-        default:''
-    }
+    
 
 });
 const User=mongoose.model("User", UserSchema);
