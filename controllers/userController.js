@@ -2,6 +2,8 @@ const User=require('../models/userModel');
 const rating=require('../models/ratingModel');
 const { check, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
+const {sendMailMessage} = require('../utils/mail')
+
 const jwt = require('jsonwebtoken');
 const mailgun=require("mailgun-js");
 const DOMAIN = "sandbox08e4a075b14f453e8e97d91b7fe9c453.mailgun.org";
