@@ -4,7 +4,7 @@ const express=require('express');
 const webpush=require('web-push')
 const bodyParser=require('body-parser');//core module
 const cors = require('cors')
-require('dotenv').config();
+
 
 const publicVapidKey='BLaccjgm75Ojtapy-pPj1BV467St1DzqKTjBeDk2aWyYUAprMSfcKsXMSzgLrzdrxVnCmdxHaaiCmGyyO3ljPWY';
 const privateVapidKey='GTmf0ucpf3Kc0f2cSh4KvxsxWpEJyNtYduhuRxkO6sc';
@@ -26,8 +26,18 @@ const faqRoute=require('./routes/faqRoute');
 const commentRoute=require('./routes/commentRoute');
 
 const path=require('path')
+const dotenv = require('dotenv')
+
 const publicDir=path.join(__dirname+ "public")
 const app=express();
+
+
+
+dotenv.config({
+  "path":'./.env'
+})
+
+
 
 
 webpush.setVapidDetails('mailto:sariyanmagar@gmail.com', publicVapidKey, privateVapidKey)

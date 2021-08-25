@@ -2,12 +2,9 @@ const User=require('../models/userModel');
 const rating=require('../models/ratingModel');
 const { check, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
+const jwt=require('jsonwebtoken')
 const {sendMailMessage} = require('../utils/mail')
 
-const jwt = require('jsonwebtoken');
-const mailgun=require("mailgun-js");
-const DOMAIN = "sandbox08e4a075b14f453e8e97d91b7fe9c453.mailgun.org";
-const mg=mailgun({apiKey:process.env.MAILGUN_APIKEY, domain:DOMAIN});
 
 
 //...........SIGNUP..............................................................................................
@@ -165,7 +162,7 @@ exports.verifyEmail=async(req,res)=>{
         if(user != null){
             let token = jwt.sign({"email":email},'resetKey',{expiresIn:"15m"})
         let content ={
-          "heading":"Password Reset Link",
+        //   "heading":"Password Reset Link",
           "greeting":"Dear Sir/Madam!",
           "link":"http://localhost:3000/reset/"+token,
           "task":"Email Recovery"
