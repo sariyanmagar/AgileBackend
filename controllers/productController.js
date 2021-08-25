@@ -2,8 +2,6 @@ const { WebPushError } = require('web-push');
 const Product=require('../models/productModel');
 const rating=require('../models/ratingModel');
 
-
-
 //.........................INSERT PRODUCT.........................................................................
 exports.add_product=(req,res)=>{
     console.log(req.file)
