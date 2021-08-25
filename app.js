@@ -18,7 +18,6 @@ const rentCartRoute=require('./routes/rentCartRoute');
 const buyCartRoute=require('./routes/buyCartRoute');
 const favouriteRoute=require('./routes/favouriteRoute');
 const promocodeRoute=require('./routes/promocodeRoute');
-const orderRoute=require('./routes/orderRoute');
 const rentBillRoute=require('./routes/rentBillRoute');
 
 const faqRoute=require('./routes/faqRoute');
@@ -40,7 +39,6 @@ app.use(rentCartRoute);
 app.use(buyCartRoute);
 app.use(favouriteRoute);
 app.use(promocodeRoute);
-app.use(orderRoute);
 app.use(rentBillRoute);
 app.use(faqRoute);
 app.use(commentRoute);
