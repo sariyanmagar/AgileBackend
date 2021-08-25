@@ -21,6 +21,45 @@ exports.get_default_buycart = (req, res) => {
     })
 }
 
+
+//..................................GET PENDING AND DELIVERED (CUSTOMER)...........................................................
+exports.get_pending_delivered_buycart = (req, res) => {
+    console.log(req.user)
+    BuyCart.find({ user: req.user._id, status: {$in: ["pending","delivered"]}}).populate({ path: "order.product" }).exec(function (err, buycarts) {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: err.message
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: "Pending Items",
+            data: buycarts
+        })
+    })
+}
+
+
+//..................................GET PENDING AND DELIVERED (ADMIN)...........................................................
+exports.get_order_admin = (req, res) => {
+    console.log(req.user)
+    BuyCart.find({ status: {$in: ["pending","delivered"]}}).populate({ path: "order.product" }).exec(function (err, buycarts) {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: err.message
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: "Pending Items",
+            data: buycarts
+        })
+    })
+}
+
+//..................................GET WHOLE BUYCART..................................................................
 exports.get_buycart = (req, res) => {
     console.log(req.user)
     BuyCart.find({ user: req.user._id }).populate({ path: "order.product" }).exec(function (err, buycarts) {
@@ -37,6 +76,7 @@ exports.get_buycart = (req, res) => {
         })
     })
 }
+
 
 
 //.................................................GET TRENDING........................................................
@@ -76,12 +116,14 @@ exports.get_trending = (req, res) => {
             }
         }))
 
-        Product.populate(result,{path:"product"}).then(data=>{
-            data.sort()
+        Product.populate(result, { path: "product" }).then(data => {
+            data.sort(function (a, b) {
+                return b.quantity - a.quantity;
+              })
             return res.status(200).json({
                 success: true,
                 message: "Cart Items",
-                data: data
+                data: data.slice(0,10)
             })
         })
     })
@@ -270,34 +312,40 @@ exports.update_buycart_to_delivered = async (req, res) => {
             })
         }
     })
-
 }
 
 
 
-// //..........................................................REMOVE FROM BUYCART..............................................................
-// exports.remove_buycart = (req,res) =>{
-//     var orderId = req.params.id
-//     var Ob_id = req.params.Ob_id
-//     Buycart.update({ _id: orderId},
-//         { 
-//             $pull: { "order._id": Ob_id }
-//         }
-//     );
-// }
+//..........................................................REMOVE FROM BUYCART..............................................................
+exports.remove_buycart = (req, res) => {
+    var orderId = req.params.id
+    console.log(orderId)
+    var Ob_id = req.params.Ob_id
+    BuyCart.findOneAndUpdate({ _id: orderId },
+        {
+            $pull: { "order": { _id: Ob_id } }
+        }
+    ).then(data => {
+        return res.status(200).json({
+            success: true,
+            message: "success delete"
+        })
+    });
+}
 
-//.........................................................REMOVE FROM ORDER..............................................................
-exports.remove_order = (req,res) =>{
+
+// //..........................................................REMOVE FROM ORDER..............................................................
+exports.remove_order = (req, res) => {
     var orderId = req.params.id
     var Ob_id = req.params.Ob_id
-    BuyCart.findOneAndUpdate({ _id: orderId,status: "pending"},
-        { 
-            $pull: { "order": {_id: Ob_id} }
+    BuyCart.findOneAndUpdate({ _id: orderId, status: "pending" },
+        {
+            $pull: { "order": { _id: Ob_id } }
         }
-    ).then(data=>{
+    ).then(data => {
         return res.status(200).json({
-            success:true,
-            message:"success delete"
+            success: true,
+            message: "success delete"
         })
     });
 }

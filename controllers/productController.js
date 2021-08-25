@@ -106,6 +106,7 @@ exports.delete_product=(req,res)=>{
     })
 }
 
+//.....................................GET ALL PRODUCTS................................................................
 exports.get_all_products = (req, res) => {
     Product.find()
         .then(function (data) {
@@ -164,7 +165,7 @@ exports.get_genre=(req,res)=>{
     }  
 }
 
-//for platform
+//..........................................FOR PLATFORM..................................................................
 exports.get_platform=(req,res)=>{
     var category=req.params.category;
     if(category==="All"){
@@ -200,6 +201,7 @@ exports.get_single_product=(req,res)=>{
         res.status(500).json({error:e})
     })  
 }
+
 //.......................RATE PRODUCTS.....................................................
 exports.rateProducts=(req,res)=>{
     rating.findOne({userid:req.user._id, productid : req.body.productid}, function(err, checkrating){
