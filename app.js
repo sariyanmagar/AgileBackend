@@ -2,6 +2,8 @@
 const mongoose=require('mongoose');
 const express=require('express');
 const webpush=require('web-push')
+const nodemailer=require('nodemailer');
+const exphbs=require('express-handlebars');
 const bodyParser=require('body-parser');//core module
 const cors = require('cors')
 
@@ -30,13 +32,10 @@ const publicDir=path.join(__dirname+ "public")
 const app=express();
 
 
-
+// send email
 dotenv.config({
   "path":'./.env'
 })
-
-
-
 
 webpush.setVapidDetails('mailto:sariyanmagar@gmail.com', publicVapidKey, privateVapidKey)
 app.use(cors());
