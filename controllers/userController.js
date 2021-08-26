@@ -22,7 +22,7 @@ exports.user_signup=(req, res)=> {[
         const email = req.body.email;
         const phone = req.body.phone;
         const address = req.body.address;
-        const profile=req.file.path;
+        const path=req.file.path;
         const username = req.body.username;
         const password = req.body.password;
         console.log(password)
@@ -156,7 +156,39 @@ exports.getRatings=(req,res)=>{
     })
 }
 
-//......................................RESET PASSWORD........................................................
+//....................................CHANGE PASSWORD...............................................................
+exports.change_password=async(req,res)=>{
+let { userId, oldPassword, newPassword }=req.body;
+if (!userId || !oldPassword || !newPassword) {
+  return res.json({ message: "All filled must be required" });
+} else {
+  const data = await User.findOne({ _id: userId });
+  if (!data) {
+    return res.json({
+      error: "Invalid user",
+    });
+  } else {
+    const oldPassCheck = await bcryptjs.compare(oldPassword, data.password);
+    if (oldPassCheck) {
+      newPassword = bcryptjs.hashSync(newPassword, 10);
+      let passChange = User.findByIdAndUpdate(userId, {
+        password: newPassword,
+      });      
+      passChange.exec((err, result) => {
+        if (err) console.log(err);
+        return res.json({ success: "Password updated successfully" });
+      });
+    } else {
+      return res.json({
+        error: "Your old password is wrong!!",
+      });
+    }
+  }
+}
+}
+
+
+//......................................RESET PASSWORD..............................................................
 
 exports.verifyEmail=async(req,res)=>{
     try{
