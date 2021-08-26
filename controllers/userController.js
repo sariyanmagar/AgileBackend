@@ -22,6 +22,7 @@ exports.user_signup=(req, res)=> {[
         const email = req.body.email;
         const phone = req.body.phone;
         const address = req.body.address;
+        const profile=req.file.path;
         const username = req.body.username;
         const password = req.body.password;
         console.log(password)
@@ -33,6 +34,7 @@ exports.user_signup=(req, res)=> {[
                 email: email,
                 phone: phone,
                 address: address,
+                profile:req.file.path,
                 username: username,
                 password: hash,
             });
@@ -132,6 +134,7 @@ exports.user_update=(req,res)=>{
     })
 }
 
+//..................................GET RATINGS....................................
 exports.getRatings=(req,res)=>{
     rating.findOne({productid : req.body.productid, userid : req.user._id}, function(err, rating){
         if(err) return res.send({
@@ -153,7 +156,7 @@ exports.getRatings=(req,res)=>{
     })
 }
 
-//......................................RESET PASSWORD.................................................
+//......................................RESET PASSWORD........................................................
 
 exports.verifyEmail=async(req,res)=>{
     try{

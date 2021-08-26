@@ -1,10 +1,10 @@
 const express=require("express");
 const router=express.Router();
-
+const fileUpload=require('../middleware/fileUpload')
 const UserController=require('../controllers/userController')
 const auth=require('../middleware/auth');
 
-router.post('/signup', UserController.user_signup);
+router.post('/signup',fileUpload.single("profile"), UserController.user_signup);
 
 router.post('/login',UserController.user_login);
 
