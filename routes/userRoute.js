@@ -19,4 +19,6 @@ router.put('/userupdate/:id',UserController.user_update);
 router.post('/getRatingsByUser',auth.verifyUser,UserController.getRatings );
 
 router.get('/getRatings', UserController.getRatings);
+
+router.post('/forgot/password', UserController.verifyEmail);
 module.exports=router;

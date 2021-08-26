@@ -5,6 +5,7 @@ const mongoose=require('mongoose');
 //     useCreateIndex: true,
 //     useUnifiedTopology : true
 // })
+
 mongoose.connect('mongodb://127.0.0.1:27017/GameRental',{
     useNewUrlParser: true,
     useCreateIndex: true,

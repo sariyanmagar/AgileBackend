@@ -24,8 +24,18 @@ const faqRoute=require('./routes/faqRoute');
 const commentRoute=require('./routes/commentRoute');
 
 const path=require('path')
+const dotenv = require('dotenv')
+
 const publicDir=path.join(__dirname+ "public")
 const app=express();
+
+
+
+dotenv.config({
+  "path":'./.env'
+})
+
+
 
 
 webpush.setVapidDetails('mailto:sariyanmagar@gmail.com', publicVapidKey, privateVapidKey)

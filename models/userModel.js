@@ -1,6 +1,8 @@
 const mongoose=require('mongoose');
+const Schema=mongoose.Schema;
+const Joi=require("joi");
 
-const User=mongoose.model('User',{
+const UserSchema=new Schema({
     fullname:{
         type:String
     },
@@ -32,6 +34,10 @@ const User=mongoose.model('User',{
     password:{
         type:String,
         required:true
-    }
-})
+    },
+    
+
+});
+const User=mongoose.model("User", UserSchema);
+
 module.exports=User;

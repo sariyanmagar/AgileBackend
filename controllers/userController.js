@@ -1,8 +1,11 @@
 const User=require('../models/userModel');
+const rating=require('../models/ratingModel');
 const { check, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const rating=require('../models/ratingModel');
+const jwt=require('jsonwebtoken')
+const {sendMailMessage} = require('../utils/mail')
+
+
 
 //...........SIGNUP..............................................................................................
 exports.user_signup=(req, res)=> {[
@@ -149,3 +152,35 @@ exports.getRatings=(req,res)=>{
       
     })
 }
+
+//......................................RESET PASSWORD.................................................
+
+exports.verifyEmail=async(req,res)=>{
+    try{
+        let email=req.body['email'];
+        let user=await User.findOne({"email":email})
+        if(user != null){
+            let token = jwt.sign({"email":email},'resetKey',{expiresIn:"15m"})
+        let content ={
+        //   "heading":"Password Reset Link",
+          "greeting":"Dear Sir/Madam!",
+          "link":"http://localhost:3000/reset/"+token,
+          "task":"Email Recovery"
+        }
+
+        sendMailMessage("Recovery",email,content)
+
+       return res.status(200).json({"success":true,"message":"Recovery mail has been sent to your email address."})
+    }
+    else
+    {
+      return res.status(202).json({"success":false,"message":"Email Address doesnot exist."})
+    }
+  }
+  catch(err)
+  {
+    return res.status(404).json({"success":false,"message":err})
+  }
+}
+
+
