@@ -52,37 +52,36 @@ exports.add_product=async(req,res)=>{
 
 //.....................................................UPDATE PRODUCT.................................................
 exports.update_product=(req,res)=>{
-    const productname=req.body.productname;
-    const platform=req.body.platform;
-    const rent_price=req.body.rent_price;
-    const buy_price=req.body.buy_price;
-    const publisher=req.body.publisher;
-    const genre=req.body.genre;
-    const release_date=req.body.release_date;
-    const added_date=req.body.added_date;
-    const condition=req.body.condition;
-    const system_requirements=req.body.system_requirements;
-    const instock=req.body.instock;
-    const description=req.body.description;
-    const trailer=req.body.trailer;
-    const pid=req.params.id;
+    // const productname=req.body.productname;
+    // const platform=req.body.platform;
+    // const rent_price=req.body.rent_price;
+    // const buy_price=req.body.buy_price;
+    // const publisher=req.body.publisher;
+    // const genre=req.body.genre;
+    // const release_date=req.body.release_date;
+    // const added_date=req.body.added_date;
+    // const condition=req.body.condition;
+    // const system_requirements=req.body.system_requirements;
+    // const instock=req.body.instock;
+    // const description=req.body.description;
+    // const trailer=req.body.trailer;
+    // const pid=req.params.id;#
+    // const image = 
+    // console.log(req.file)
 
-    Product.updateOne({_id:pid},{
-        productname:productname,
-        platform:platform,
-        rent_price:rent_price,
-        buy_price:buy_price,
-        publisher:publisher,
-        genre:genre,
-        release_date:release_date,
-        added_date:added_date,
-        condition:condition,
-        system_requirements:system_requirements,
-        instock:instock,
-        description:description,
-        trailer:trailer,
-        image:req.files.image[0].filename,
-    })
+    // console.log(req.body)
+    const data = req.body
+    const updateData = JSON.parse(JSON.stringify(data))
+    console.log(updateData)
+    // if(updateData.image == undefined){
+        updateData.image = req.file.path
+    // } 
+
+    console.log(updateData)
+    
+
+    Product.updateOne({_id:req.params.id},updateData
+    )
     .then(function(success){
         res.status(200).json({success:true, message:"Updated Successfully!!"})
     })
