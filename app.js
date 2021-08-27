@@ -1,7 +1,11 @@
 //third party module
 const mongoose=require('mongoose');
 const express=require('express');
-const webpush=require('web-push')
+const webpush=require('web-push');
+const http=require('http');
+const server=http.createServer(app);
+const {Server}=require("socket.io");
+const io= new Server(server);
 const bodyParser=require('body-parser');//core module
 const cors = require('cors')
 
@@ -24,21 +28,17 @@ const faqRoute=require('./routes/faqRoute');
 const commentRoute=require('./routes/commentRoute');
 
 const path=require('path')
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+const { Socket } = require('dgram');
 
 const publicDir=path.join(__dirname+ "public")
 const app=express();
-
-
 
 dotenv.config({
   "path":'./.env'
 })
 
 
-
-
-webpush.setVapidDetails('mailto:sariyanmagar@gmail.com', publicVapidKey, privateVapidKey)
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}));
@@ -71,6 +71,20 @@ app.post("/subscribe", (req, res) => {
 
     res.status(200).json({ success: true });
 });
+
+
+//socket.io
+app.get('/', (req,res)=>{
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', (socket)=>{
+  socket.broadcast.emit('New product release');
+})
+
+server.listen(3000,()=>{
+  console.log('listening on *:3000');
+})
 
 // app.get('/', (req, res) => {
 //     res.send('GOGO Gaming')
