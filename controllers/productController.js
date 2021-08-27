@@ -65,7 +65,6 @@ exports.update_product=(req,res)=>{
     const instock=req.body.instock;
     const description=req.body.description;
     const trailer=req.body.trailer;
-    const image=req.file.path;
     const pid=req.params.id;
 
     Product.updateOne({_id:pid},{
@@ -82,7 +81,7 @@ exports.update_product=(req,res)=>{
         instock:instock,
         description:description,
         trailer:trailer,
-        image:image,
+        image:req.files.image[0].filename,
     })
     .then(function(success){
         res.status(200).json({success:true, message:"Updated Successfully!!"})

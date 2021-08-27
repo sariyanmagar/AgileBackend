@@ -111,8 +111,7 @@ exports.get_single_user=(req,res)=>{
     })
     .catch(function(e){
         res.status(500).json({error:e})
-    })
-    
+    })   
 }
 
 //........................DELETE USER................................................................................
@@ -152,7 +151,6 @@ exports.getRatings=(req,res)=>{
                 rating : rating
             })
         }
-      
     })
 }
 
@@ -199,10 +197,9 @@ exports.verifyEmail=async(req,res)=>{
         let content ={
         //   "heading":"Password Reset Link",
           "greeting":"Dear Sir/Madam!",
-          "link":"http://localhost:3000/reset/"+token,
+          "link":"http://localhost:3000/passwordreset"+token,
           "task":"Email Recovery"
         }
-
         sendMailMessage("Recovery",email,content)
 
        return res.status(200).json({"success":true,"message":"Recovery mail has been sent to your email address."})

@@ -31,6 +31,7 @@
     "nodemailer": "^6.6.3",
     "nodemailer-express-handlebars": "^4.0.0",
     "nodemon": "^2.0.9",
+    "otp-generator": "^2.0.1",
     "package": "^1.0.1",
     "package.json": "^2.0.1",
     "time-stamp": "^2.2.0",
