@@ -215,4 +215,81 @@ exports.verifyEmail=async(req,res)=>{
   }
 }
 
+exports.resetPassword=async(req,res)=>{
+    try
+    {
+        let errors = validationResult(req);
+        if(errors.isEmpty())
+        {
+            let newPassword = req.body['newPassword'];
+            let confirmPassword = req.body['confirmPassword'];
+            let resetToken = req.body['resetToken'];
+            let verifyReset = await verifyToken(resetToken,"resetKey")
+
+            let errorBox = {};
+            if(newPassword != confirmPassword)
+            {
+                errorBox['newPassword'] = "Password MisMatch!!";
+            }
+            if(verifyReset == "Token Expired!!")
+            {
+                errorBox['token'] = "Request Time Out!!";
+            }
+            
+            if(Object.keys(errorBox).length > 0)
+            {
+                return res.status(202).json({
+                    "success":false,
+                    "message":"Certain errors found during password reset.",
+                    "error":errorBox});
+            }
+            else
+            {
+            
+                let user = await UserRegistration.findOne({"email":verifyReset.email});
+             
+                bcryptjs.hash(newPassword,10,(err,hash)=>{
+                    UserRegistration.updateOne({"email":verifyReset.email},{
+                        $set:{
+                            "password":hash
+                        }
+                    })
+                    .then((result)=>{
+                        if(user.userType == "Customer")
+                        {
+                            User.updateOne({
+                                "userName":user.userName
+                            },{
+                                $set:{
+                                    "password":hash
+                                }
+                            })
+                            .then((result2)=>{})
+                            .catch((err)=>{
+                               
+                                return res.status(404).json({"success":false,"message":err})
+                            })
+                        }
+                        return res.status(200).json({"success":true,"message":"Login with your new password."})
+                    })
+                    .catch((err)=>{
+                        
+                        return res.status(404).json({"success":false,"message":err})
+                    })
+                })
+            }
+        }
+        else
+        {
+            let customizedError = getCustomizedError(errors.array());
+            return res.status(202).json({"success":false,"message":"Certain errors found during password reset.","error":customizedError});
+        }
+    }
+    catch(err)
+    {
+        
+        return res.status(404).json({"success":false,"message":err});
+    }
+}
+
 
