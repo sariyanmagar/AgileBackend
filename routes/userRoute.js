@@ -3,6 +3,7 @@ const router=express.Router();
 const fileUpload=require('../middleware/fileUpload')
 const { check } = require('express-validator');
 const UserController=require('../controllers/userController')
+
 const auth=require('../middleware/auth');
 
 router.post('/signup',fileUpload.single("profile"), UserController.user_signup);

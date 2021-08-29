@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
 const jwt=require('jsonwebtoken')
 const {sendMailMessage} = require('../utils/mail')
+const {verifyToken}=require('../utils/token')
 
 
 
@@ -197,7 +198,7 @@ exports.verifyEmail=async(req,res)=>{
         let content ={
         //   "heading":"Password Reset Link",
           "greeting":"Dear Sir/Madam!",
-          "link":"http://localhost:3000/passwordreset"+token,
+          "link":"http://localhost:3000/passwordreset/"+token,
           "task":"Email Recovery"
         }
         sendMailMessage("Recovery",email,content)
@@ -215,80 +216,60 @@ exports.verifyEmail=async(req,res)=>{
   }
 }
 
-exports.resetPassword=async(req,res)=>{
-    try
-    {
+exports.resetPassword = async (req, res) => {
+    try {
         let errors = validationResult(req);
-        if(errors.isEmpty())
-        {
+        if (errors.isEmpty()) {
             let newPassword = req.body['newPassword'];
             let confirmPassword = req.body['confirmPassword'];
             let resetToken = req.body['resetToken'];
-            let verifyReset = await verifyToken(resetToken,"resetKey")
+            console.log(resetToken)
+            let verifyReset = await verifyToken(resetToken, "resetKey")
 
             let errorBox = {};
-            if(newPassword != confirmPassword)
-            {
+            if (newPassword != confirmPassword) {
                 errorBox['newPassword'] = "Password MisMatch!!";
             }
-            if(verifyReset == "Token Expired!!")
-            {
+            if (verifyReset == "Token Expired!!") {
                 errorBox['token'] = "Request Time Out!!";
             }
-            
-            if(Object.keys(errorBox).length > 0)
-            {
+
+            if (Object.keys(errorBox).length > 0) {
                 return res.status(202).json({
-                    "success":false,
-                    "message":"Certain errors found during password reset.",
-                    "error":errorBox});
+                    "success": false,
+                    "message": "Certain errors found during password reset.",
+                    "error": errorBox
+                });
             }
-            else
-            {
-            
-                let user = await UserRegistration.findOne({"email":verifyReset.email});
-             
-                bcryptjs.hash(newPassword,10,(err,hash)=>{
-                    UserRegistration.updateOne({"email":verifyReset.email},{
-                        $set:{
-                            "password":hash
+            else {
+
+
+
+                bcryptjs.hash(newPassword, 10, (err, hash) => {
+                    User.updateOne({ "email": verifyReset.email }, {
+                        $set: {
+                            "password": hash
                         }
                     })
-                    .then((result)=>{
-                        if(user.userType == "Customer")
-                        {
-                            User.updateOne({
-                                "userName":user.userName
-                            },{
-                                $set:{
-                                    "password":hash
-                                }
-                            })
-                            .then((result2)=>{})
-                            .catch((err)=>{
-                               
-                                return res.status(404).json({"success":false,"message":err})
-                            })
-                        }
-                        return res.status(200).json({"success":true,"message":"Login with your new password."})
-                    })
-                    .catch((err)=>{
-                        
-                        return res.status(404).json({"success":false,"message":err})
-                    })
+                        .then((result) => {
+
+                            return res.status(200).json({ "success": true, "message": "Login with your new password." })
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            return res.status(404).json({ "success": false, "message": err })
+                        })
                 })
             }
         }
-        else
-        {
-            let customizedError = getCustomizedError(errors.array());
-            return res.status(202).json({"success":false,"message":"Certain errors found during password reset.","error":customizedError});
+        else {
+
+            return res.status(202).json({ "success": false, "message": errors.array()[0].msg });
         }
     }
-    catch(err)
-    {
-        
-        return res.status(404).json({"success":false,"message":err});
+    catch (err) {
+        console.log(err)
+        return res.status(404).json({ "success": false, "message": err });
     }
 }
 
