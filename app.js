@@ -2,10 +2,10 @@
 const mongoose=require('mongoose');
 const express=require('express');
 const webpush=require('web-push');
-const http=require('http');
-const server=http.createServer(app);
-const {Server}=require("socket.io");
-const io= new Server(server);
+// const http=require('http');
+// const server=http.createServer(app);
+// const {Server}=require("socket.io");
+// const io= new Server(server);
 const bodyParser=require('body-parser');//core module
 const cors = require('cors')
 
@@ -74,17 +74,17 @@ app.post("/subscribe", (req, res) => {
 
 
 //socket.io
-app.get('/', (req,res)=>{
-  res.sendFile(__dirname + '/index.html');
-});
+// app.get('/', (req,res)=>{
+//   res.sendFile(__dirname + '/index.html');
+// });
 
-io.on('connection', (socket)=>{
-  socket.broadcast.emit('New product release');
-})
+// io.on('connection', (socket)=>{
+//   socket.broadcast.emit('New product release');
+// })
 
-server.listen(3000,()=>{
-  console.log('listening on *:3000');
-})
+// server.listen(3000,()=>{
+//   console.log('listening on *:3000');
+// })
 
 // app.get('/', (req, res) => {
 //     res.send('GOGO Gaming')
