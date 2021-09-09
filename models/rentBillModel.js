@@ -2,11 +2,11 @@ const mongoose=require('mongoose');
 const {modelName}=require('./productModel')
 
 const RentBill=mongoose.model('RentBill',{
-    products:[{
+    product:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product',
         require:true
-    }],
+    },
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
@@ -14,14 +14,18 @@ const RentBill=mongoose.model('RentBill',{
     },
     advance:{
         type:Number, 
-        default:200,
+        default:1000,
+    },
+    quantity: {
+        type : Number,
+        required : false
     },
     rent_date:{
         type:Date,
         default: Date.now()
     },
     return_date:{
-        type:Date,
+        type:String,
     },
     days_rented:{
         type:Number,
@@ -32,9 +36,10 @@ const RentBill=mongoose.model('RentBill',{
     due_remaining:{
         type:Number,
     },
-    returned:{
-        type:Boolean,
-        default:false
+    status:{
+        type:String,
+        emun:["default","pending","returned"],
+        default:"default"
     }
 })
 
