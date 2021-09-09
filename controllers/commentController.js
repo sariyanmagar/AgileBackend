@@ -1,5 +1,4 @@
-const comment=require('../models/commentModel');
-const reply=require('../models/reply');
+const comment=require('../models/commentModel'); 
 const User=require('../models/userModel')
 
 exports.addComments=(req,res)=>{
@@ -41,26 +40,19 @@ exports.getCommentByProduct=(req,res)=>{
                 message : "No Comments"
             })
 
-        comment.find({productid : req.body.productid}).populate("userid replies.id").exec(function(err, data){
+        comment.find({productid : req.body.productid}).populate("userid").exec(function(err, data){
 
-            User.populate(data, {
-                path: 'replies.id.userid',
-                
-              }, function(err, data){
-                return res.json({
-                    success : true,
-                    comments : data
-                });
-              });
+            return res.json({
+                success : true,
+                comments : data
+            });
         })
     })
 }
 
 exports.destroyComment=(req,res)=>{
     comment.findOneAndDelete({_id : req.body.commentId}, function(err, comments){
-
-        reply.deleteMany({commentid : req.body.commentId});
-        
+ 
         comment.find({productid : req.body.productid}, function(err, comments){
             if(err) return res.send({
                 success : false,
@@ -88,41 +80,4 @@ exports.destroyComment=(req,res)=>{
 
 }
 
-exports.addReply=(req,res)=>{
-    reply.create({
-        userid : req.user._id,
-        commentid : req.body.commentId,
-        productid : req.body.productid,
-        reply : req.body.reply
-
-    }, function(err, replydata){
-        if(err) return res.send({
-            success : false,
-            message : err.message
-        })
-
-        var replyarray = {
-            id : replydata._id
-        }
-
-         
-        comment.findByIdAndUpdate(replydata.commentid, {$push : {replies : replyarray}}, function(err, data){
-            if(err) return res.send({
-                        success : false,
-                        message : err.message
-                    })
-                  
-      reply.find({productid : req.body.productid, commentid : data._id}).populate("userid").exec(function(err, data){
-                        if(err) return res.send({
-                            success : false,
-                            message : err.message
-                        })
-        
-                        return res.json({
-                            success : true,
-                            reply : data
-                        });
-                    })
-                })
-            })
-}
+ 
