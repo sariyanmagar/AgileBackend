@@ -16,6 +16,11 @@ const RentCart=mongoose.model('RentCart',{
         type:Number,
         require:true,
         default:1
+    },
+    status:{
+        type:String,
+        emun:["default","pending","returned"],
+        default:"default"
     }
 })
 module.exports=RentCart;
