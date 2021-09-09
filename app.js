@@ -72,20 +72,6 @@ app.post("/subscribe", (req, res) => {
     res.status(200).json({ success: true });
 });
 
-
-// socket.io
-// app.get('/', (req,res)=>{
-//   res.sendFile(__dirname + '/index.html');
-// });
-
-// io.on('connection', (socket)=>{
-//   socket.broadcast.emit('New product release');
-// })
-
-// server.listen(3000,()=>{
-//   console.log('listening on *:3000');
-// })
-
 // app.get('/', (req, res) => {
 //     res.send('GOGO Gaming')
 //   })

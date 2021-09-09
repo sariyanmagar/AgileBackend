@@ -20,19 +20,43 @@ exports.get_rentcart=(req,res)=>{
 
 //..............................DELETE ..................................................................
 exports.delete_rentcart=(req,res)=>{
-    RentCart.findOneAndDelete({user:req.user._id, product:req.params.id}, function(err,rentcarts){
-        if(err){
-            return res.status(500).json({
-                success:false,
-                message:err.message
+   RentCart.findOne({user : req.user._id, product : req.params.id}, function(err, rent){
+       if(err) return res.status(500).json({success : false, message : err.message})
+
+       if(rent){
+           if(rent.quantity > 1){
+               let newquantity = rent.quantity - 1
+            RentCart.findOneAndUpdate({user:req.user._id, product:req.params.id} , {$set : {quantity : newquantity}}, function(err,rentcarts){
+                if(err){
+                    return res.status(500).json({
+                        success:false,
+                        message:err.message
+                    })
+                }
+                return res.status(200).json({
+                    success:true,
+                    message:"Item removed from the rent cart!!",
+                    data:rentcarts
+                })
             })
-        }
-        return res.status(200).json({
-            success:true,
-            message:"Item removed from the buy cart!!",
-            data:rentcarts
-        })
-    })
+           }else{
+            RentCart.findOneAndDelete({user:req.user._id, product:req.params.id}, function(err,rentcarts){
+                if(err){
+                    return res.status(500).json({
+                        success:false,
+                        message:err.message
+                    })
+                }
+                return res.status(200).json({
+                    success:true,
+                    message:"Item removed from the rent cart!!",
+                    data:rentcarts
+                })
+            })
+           }
+       }
+   })
+   
 }
 
 //...........................ADD TO BUY CART....................................................................

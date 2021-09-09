@@ -25,7 +25,7 @@ exports.add_faq=(req,res)=>{
 exports.add_admin_faq=(req,res)=>{
     const question=req.body.question;
     const answer=req.body.answer;
-    const answered=req.body.answered;
+    const answered=true; 
 
     const faqData= new Faq({
         question:question,
@@ -45,7 +45,7 @@ exports.add_admin_faq=(req,res)=>{
 exports.update_faq=(req,res)=>{
     const question=req.body.question;
     const answer=req.body.answer;
-    const answered=req.body.answered;
+    const answered=true;
     const pid=req.params.id;
 
     Faq.updateOne({_id:pid},{

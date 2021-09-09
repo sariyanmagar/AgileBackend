@@ -1,10 +1,10 @@
 const RentBill = require('../models/rentBillModel');
 const moment = require('moment');
 const Product = require('../models/productModel');
+const RentCart = require('../models/rentCartModel');
 //...........................SHOW PRODUCT IN RENT BILL......................
-exports.get_rentbill = (req, res) => {
-    console.log(req.user)
-    RentBill.find({ user: req.user._id }).populate("products").exec(function (err, rentbills) {
+exports.get_rentbill = (req, res) => { 
+    RentBill.find({ user: req.user._id }).populate("product").exec(function (err, rentbills) {
         if (err) {
             return res.status(500).json({
                 success: false,
@@ -39,62 +39,44 @@ exports.delete_rentbill = (req, res) => {
 //...........................ADD TO RENT BILL............................................
 exports.add_to_rentbill = async (req, res) => {
     // console.log(req.user._id)
-    var total_rent_price = 0
-    // console.log("products", req.body.products)
-    await Promise.all(req.body.products.map(async productId => {
-        const product = await Product.findById(productId)
-        total_rent_price += product.rent_price
-    }))
-    var return_date = req.body.return_date
-    var days_rented = moment.duration(moment(new Date(return_date)).diff(moment())).days()
-    var total_price = total_rent_price * days_rented
-    var data = {
-        products: req.body.products,
-        user: req.user._id,
-        advance: 500,
-        return_date: return_date,
-        total_price: total_price,
-        days_rented: days_rented,
-        due_remaining: total_price - 500
-        // return_date: null,
-        // days_rented: 0,
-        // calc_price: 0,
-        // total_price:0
-        // return_date: moment(new Date()),
-        // days_rented : moment.duration(rent_date.diff(return_date)),
-        // calc_price : days_rented * req.body.rent_price,
-        // total_price : advance + calc_price
-    }
-    // RentBill.findOne(data,function(err, rentbill){
-    // if(rentbill){
-    //     var currentquantity=rentbill.quantity+1;
-    //     RentBill.findOneAndUpdate({_id:rentcart._id}, {$set:{quantity:currentquantity}}).then(function(rentbill){
-    //         return res.status(200).json({
-    //             success:true,
-    //             message:"Product added to rent bill successfully!!",
-    //             rentbill:rentbill
-    //         })
-    //     }).catch(err =>{
-    //         return res.status(500).json({
-    //             success:false,
-    //             message:err.message
-    //         })
-    //     })
-    // }else{
-    RentBill.create(data).then(function (rentbill) {
+   console.log(req.body.data)
+    const myPromise = new Promise((resolve, reject) => {
+        req.body.data.map((val) => {
+            let data = {
+                product : val.productid,
+                user : req.user._id,
+                quantity : val.quantity,
+                rent_date : Date.now(),
+                return_date : val.returnDate,
+                days_rented : val.rentDays,
+                total_price : val.subtotal,
+                due_remaining : val.subtotal,
+                status : "pending"
+            }
+            RentCart.findOneAndDelete({product : val.productid, user: req.user._id}).then(function() {
+
+                RentBill.create(data).then(function (rentbill) {
+                    resolve()
+                }).catch(err => {
+                    reject()
+                })
+            }).catch(err => {
+                reject()
+            })
+
+        })
+      });
+      
+    
+      myPromise
+      .then(() => {
         return res.status(200).json({
             success: true,
-            message: "Product Added to Bill Successfully!!",
-            rentbill: rentbill
+            message: "Product Added to Bill Successfully!!", 
         })
-    }).catch(err => {
-        return res.status(500).json({
-            success: false,
-            message: err.message
-        })
-    })
-    // }
-    // })
+      });
+
+  
 }
 
 

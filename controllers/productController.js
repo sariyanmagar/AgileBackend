@@ -72,14 +72,7 @@ exports.update_product=(req,res)=>{
     // console.log(req.body)
     const data = req.body
     const updateData = JSON.parse(JSON.stringify(data))
-    console.log(updateData)
-    // if(updateData.image == undefined){
-        updateData.image = req.file.path
-    // } 
-
-    console.log(updateData)
-    
-
+   
     Product.updateOne({_id:req.params.id},updateData
     )
     .then(function(success){
@@ -285,6 +278,7 @@ exports.get_four_products=(req,res)=>{
         res.status(500).json({error:e})
     })  
 }
+
 
 
 
