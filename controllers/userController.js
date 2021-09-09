@@ -203,16 +203,22 @@ exports.verifyEmail=async(req,res)=>{
         }
         sendMailMessage("Recovery",email,content)
 
-       return res.status(200).json({"success":true,"message":"Recovery mail has been sent to your email address."})
+       return res.status(200).json({
+           "success":true,
+           "message":"Recovery mail has been sent to your email address."})
     }
     else
     {
-      return res.status(202).json({"success":false,"message":"Email Address doesnot exist."})
+      return res.status(202).json({
+          "success":false,
+          "message":"Email Address doesnot exist."})
     }
   }
   catch(err)
   {
-    return res.status(404).json({"success":false,"message":err})
+    return res.status(404).json({
+        "success":false,
+        "message":err})
   }
 }
 
@@ -242,9 +248,6 @@ exports.resetPassword = async (req, res) => {
                 });
             }
             else {
-
-
-
                 bcryptjs.hash(newPassword, 10, (err, hash) => {
                     User.updateOne({ "email": verifyReset.email }, {
                         $set: {
@@ -253,7 +256,9 @@ exports.resetPassword = async (req, res) => {
                     })
                         .then((result) => {
 
-                            return res.status(200).json({ "success": true, "message": "Login with your new password." })
+                            return res.status(200).json({ 
+                                "success": true, 
+                                "message": "Login with your new password." })
                         })
                         .catch((err) => {
                             console.log(err)
@@ -264,12 +269,16 @@ exports.resetPassword = async (req, res) => {
         }
         else {
 
-            return res.status(202).json({ "success": false, "message": errors.array()[0].msg });
+            return res.status(202).json({ 
+                "success": false, 
+                "message": errors.array()[0].msg });
         }
     }
     catch (err) {
         console.log(err)
-        return res.status(404).json({ "success": false, "message": err });
+        return res.status(404).json({ 
+            "success": false, 
+            "message": err });
     }
 }
 

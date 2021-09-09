@@ -73,7 +73,7 @@ app.post("/subscribe", (req, res) => {
 });
 
 
-//socket.io
+// socket.io
 // app.get('/', (req,res)=>{
 //   res.sendFile(__dirname + '/index.html');
 // });
